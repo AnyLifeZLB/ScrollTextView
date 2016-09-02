@@ -9,6 +9,7 @@
     <com.anylife.fragment.scrolltextview.ScrollTextView
         android:layout_width="55dp"
         android:layout_height="wrap_content"
+        android:background="#99336699"
         customAttr:clickEnable="false"
         customAttr:isHorizontal="false"
         customAttr:speed="1"

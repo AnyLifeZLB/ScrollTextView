@@ -222,4 +222,5 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 			}
 		}
 	}
+
 }

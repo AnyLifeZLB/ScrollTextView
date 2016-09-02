@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:customAttr="http://schemas.android.com/apk/res-auto"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:background="@android:color/black"
+             android:orientation="horizontal" >
+
+    <com.anylife.fragment.scrolltextview.ScrollTextView
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        customAttr:clickEnable="false"
+        customAttr:isHorizontal="false"
+        customAttr:speed="1"
+        customAttr:text="据台湾中时电子报8月31日报道，近日，标准排名、BOSS直聘联合发布2016上半年大陆最苦城市排行榜，核心指标是2016年7月各城市每 平方米平均房价与2016年各城市平均月薪的比值，也就是当月的房价收入比。结果显示，前10位分别是深圳、北京、上海、厦门、南京、三亚、杭州、福州、 温州和天津。"
+        customAttr:textColor="#ffffffff"
+        customAttr:textSize="22dp" />
+
+    <com.anylife.fragment.scrolltextview.ScrollTextView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        customAttr:clickEnable="true"
+        customAttr:isHorizontal="true"
+        customAttr:speed="3"
+        customAttr:text="据台湾中时电子报8月31日报道，近日，标准排名、BOSS直聘联合发布2016上半年大陆最苦城市排行榜，核心指标是2016年7月各城市每 平方米平均房价与2016年各城市平均月薪的比值，也就是当月的房价收入比。结果显示，前10位分别是深圳、北京、上海、厦门、南京、三亚、杭州、福州、 温州和天津。"
+        customAttr:textColor="#ffffffff"
+        customAttr:textSize="21dp"
+        customAttr:times="2" />
+
+
+</FrameLayout>

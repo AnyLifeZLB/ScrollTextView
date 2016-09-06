@@ -21,11 +21,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- *todo:
- *1.不需要制定字体多大，根据现实区域多大自动适配
- *2.单行垂直，水平
- *3.单行翻滚
- *4.多行滚动
+ *垂直的滚动内存抖动会很大，尽量不要使用这种样式的
+ *
+ * More todo：
+ *1.单行翻滚
+ *2.多行滚动
  *
  *
  */
@@ -105,7 +105,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 			textWidth = paint.measureText(text);// measure()方法获取text的长度
 			viewWidth_plus_textLength = viewWidth + textWidth;
 			textY = (viewHeight - getFontHeight(textSize)) / 2 + getPaddingTop() - getPaddingBottom();
-		} else { // 垂直滚动
+		} else { // 垂直滚动，不建议使用，会导致很多的问题，CPU 和 内存都会陡增
 			textHeight = getFontHeight(textSize) * text.length();
 			viewWidth_plus_textLength = viewHeight + textHeight;
 			textX = (viewWidth - textSize) / 2 + getPaddingLeft() - getPaddingRight();
@@ -181,22 +181,26 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		return true;
 	}
 
+	/**
+	 * Draw text ！
+	 *
+	 * @param X
+	 * @param Y
+	 */
 	public synchronized void draw(float X, float Y) {
 		Canvas canvas = holder.lockCanvas();
 		canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);// 通过清屏把画布填充为透明
 		if (isHorizontal) { // 水平滚动
 			canvas.drawText(text, X, Y, paint);
-		} else { // 垂直滚动
+		} else {            // 垂直滚动，这样看来内存抖动会非常的厉害
 			for (int i = 0; i < text.length(); i++) {
-				canvas.drawText(text.charAt(i) + "", X, Y + (i + 1)
-						* getFontHeight(textSize), paint);
+				canvas.drawText(text.charAt(i) + "", X, Y + (i + 1) * getFontHeight(textSize), paint);
 			}
 		}
 		holder.unlockCanvasAndPost(canvas);
 	}
 
 	class ScrollTextThread implements Runnable {
-
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
@@ -221,6 +225,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 				}
 			}
 		}
-	}
+	} //ScrollTextThread is over !
 
 }

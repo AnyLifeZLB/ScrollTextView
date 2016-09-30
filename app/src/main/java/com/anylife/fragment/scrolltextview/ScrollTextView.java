@@ -23,13 +23,15 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 1.不在视图的中心
- * 2.宽度计算不正确
+ * Android 滚动字幕，如新闻联播下面的，可以使用在广告机，机顶盒，电视App等信息发布系统。
+ *
+ * android  Videoview 也是extends SurfaceView
+ *
  */
 public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
 	private final String TAG = "ScrollTextView";
 	private SurfaceHolder holder;
-	private Paint paint = null;             // 画笔
+	private Paint paint = null;
 	private boolean bStop = false;          // 停止滚动
 
 	private boolean clickEnable = false;    // 可以点击
@@ -47,14 +49,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
 	private float density = 1;       //屏幕的密度
 
-
 	private float textX = 0f;        // 文字的横坐标
 	private float textY = 0f;        // 文字的纵坐标
 	private float viewWidth_plus_textLength = 0.0f;// 显示总长度
 	private int time = 0; // 已滚动次数
-
-
-	private List<String> contxtText = new ArrayList<>();  //切割成为多段要处理现实的字幕
 
 	private ScheduledExecutorService scheduledExecutorService; // 执行滚动线程
 
@@ -73,14 +71,12 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		speed = arr.getInteger(R.styleable.ScrollText_speed, speed);
 		text = arr.getString(R.styleable.ScrollText_text);
 		textColor = arr.getColor(R.styleable.ScrollText_textColor, textColor);
-
 		textSize = arr.getDimension(R.styleable.ScrollText_textSize, textSize);
 		times = arr.getInteger(R.styleable.ScrollText_times, times);
 
 		time = times;
 		paint.setColor(textColor);
 		paint.setTextSize(textSize);
-
 
 		/*
 		 * 下面两行代码配合draw()方法中的canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
@@ -92,12 +88,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
 		DisplayMetrics metric = new DisplayMetrics();
 		((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metric);
-
 		density = metric.density;  // 屏幕密度（0.75 / 1.0 / 1.5）
 
-		int width = metric.widthPixels;  // 屏幕宽度（像素）
-		int height = metric.heightPixels;  // 屏幕高度（像素）
-		int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
+//		int width = metric.widthPixels;  // 屏幕宽度（像素）
+//		int height = metric.heightPixels;  // 屏幕高度（像素）
+//		int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
 
 		setFocusable(true); //设置焦点
 	}
@@ -119,7 +114,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 			textY = (viewHeight + getFontHeight(textSize / density)) / 2 + getPaddingTop() - getPaddingBottom() + 2;
 			Log.e("TAG", "textY:" + textY);
 		}
-
 	}
 
 	@Override
@@ -143,7 +137,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		Log.d(TAG, "ScrollTextTextView is destroyed");
 	}
 
-	// 获取字体高度
+	/**
+	 * 	获取字体高度
+	 */
 	public int getFontHeight(float fontSize) {
 		Paint paint = new Paint();
 		paint.setTextSize(fontSize);
@@ -270,5 +266,4 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 			}
 		}
 	} //ScrollTextThread is over !
-
 }

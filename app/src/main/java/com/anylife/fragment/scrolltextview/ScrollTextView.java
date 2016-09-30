@@ -1,5 +1,6 @@
 package com.anylife.fragment.scrolltextview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,6 +10,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -23,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * 1.不在视图的中心
  * 2.宽度计算不正确
- *
  */
 public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
 	private final String TAG = "ScrollTextView";
@@ -33,7 +34,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
 	private boolean clickEnable = false;    // 可以点击
 	private boolean isHorizontal = true;    // 水平｜垂直
-	private int speed = 1;                  // 滚动速度
+	private int speed = 1;                  // 滚动速度，或者文字的停留时间
 	private String text = "";               // 文本内容
 	private float textSize = 15f;           // 字体颜色
 	private int textColor = Color.BLACK;    // 文字颜色
@@ -43,6 +44,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	private int viewHeight = 0;      // 控件的高度
 	private float textWidth = 0f;    // 水平滚动时的文本长度
 	private float textHeight = 0f;   // 垂直滚动时的文本高度
+
+	private float density = 1;       //屏幕的密度
+
 
 	private float textX = 0f;        // 文字的横坐标
 	private float textY = 0f;        // 文字的纵坐标
@@ -69,6 +73,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		speed = arr.getInteger(R.styleable.ScrollText_speed, speed);
 		text = arr.getString(R.styleable.ScrollText_text);
 		textColor = arr.getColor(R.styleable.ScrollText_textColor, textColor);
+
 		textSize = arr.getDimension(R.styleable.ScrollText_textSize, textSize);
 		times = arr.getInteger(R.styleable.ScrollText_times, times);
 
@@ -76,12 +81,23 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		paint.setColor(textColor);
 		paint.setTextSize(textSize);
 
+
 		/*
 		 * 下面两行代码配合draw()方法中的canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
 		 * 将画布填充为透明
 		 */
 		setZOrderOnTop(true);
 		getHolder().setFormat(PixelFormat.TRANSLUCENT);
+
+
+		DisplayMetrics metric = new DisplayMetrics();
+		((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metric);
+
+		density = metric.density;  // 屏幕密度（0.75 / 1.0 / 1.5）
+
+		int width = metric.widthPixels;  // 屏幕宽度（像素）
+		int height = metric.heightPixels;  // 屏幕高度（像素）
+		int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
 
 		setFocusable(true); //设置焦点
 	}
@@ -99,13 +115,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		if (isHorizontal) { // 水平滚动
 			textWidth = paint.measureText(text);// measure()方法获取text的长度
 			viewWidth_plus_textLength = viewWidth + textWidth;
-			textY = (viewHeight + getFontHeight(textSize)) / 2 + getPaddingTop() - getPaddingBottom()+2;
+//			textY = (viewHeight + getFontHeight(textSize)) / 2 + getPaddingTop() - getPaddingBottom()+2;
+			textY = (viewHeight + getFontHeight(textSize / density)) / 2 + getPaddingTop() - getPaddingBottom() + 2;
+			Log.e("TAG", "textY:" + textY);
 		}
-//		else { // 垂直滚动，不建议使用，会导致很多的问题，CPU 和 内存都会陡增
-//			textHeight = getFontHeight(textSize) * text.length();
-//			viewWidth_plus_textLength = viewHeight + textHeight;
-//			textX = (viewWidth - textSize) / 2 + getPaddingLeft() - getPaddingRight();
-//		}
 
 	}
 
@@ -194,34 +207,41 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	}
 
 
+	/**
+	 * 整行的滚动
+	 *
+	 */
 	private void drawVerteclScroll() {
 		List<String> strings = new ArrayList<>();
-		int perSectionLentgth = 1;
-		while (paint.measureText(text.substring(0, perSectionLentgth)) < viewWidth) {
-			perSectionLentgth++;
+		int start=0,end=0;
+		while(end<text.length()){
+			while(paint.measureText(text.substring(start, end)) < viewWidth&&end<text.length()){
+				end++;
+			}
+			if(end==text.length()){
+				strings.add(text.substring(start,end));
+				break;
+			}else{
+				end--;
+				strings.add(text.substring(start,end));
+				start=end;
+			}
 		}
-		perSectionLentgth--;  //可是大小写和字字母的宽度是不一样的，留给你们自己解决了
-		int section = 0;
-		while ((section + 1) * perSectionLentgth < text.length()) {
-			strings.add(text.substring(section * perSectionLentgth, (section + 1) * perSectionLentgth));
-			section++;
-		}
-		strings.add(text.substring(section * perSectionLentgth));
 
-		float fontHeight = getFontHeight(textSize);
-		int GPoint=((int)fontHeight + viewHeight)/2;
+		float fontHeight = getFontHeight(textSize / density);
+		int GPoint = ((int) fontHeight + viewHeight) / 2;
 
 		for (int n = 0; n < strings.size(); n++) {
-			for (float i = viewHeight + fontHeight; i > -fontHeight; i=i-2) {
+			for (float i = viewHeight + fontHeight; i > -fontHeight; i = i - 3) {
 				Canvas canvas = holder.lockCanvas();
 				canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);// 通过清屏把画布填充为透明
 				canvas.drawText(strings.get(n), 0, i, paint);
 				holder.unlockCanvasAndPost(canvas);
-				if (i == GPoint||(i-1)==GPoint) {
+				if (i - GPoint < 4 && i - GPoint > 0) {
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(speed * 1000);
 					} catch (InterruptedException e) {
-						Log.e("GOD","hey,what your name ?");
+						Log.e("GOD", "hey,what your name ?");
 					}
 				}
 			}
@@ -235,7 +255,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 			while (!bStop) {
 				if (isHorizontal) {
 					draw(viewWidth - textX, textY);
-					textX += speed;// 速度设置：1-10
+					textX += speed;
 					if (textX > viewWidth_plus_textLength) {
 						textX = 0;
 						--time;

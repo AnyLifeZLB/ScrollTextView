@@ -10,7 +10,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text="1234567890ABCDEFGHIJKLMNOPQRESUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
-       android:textColor="@color/colorPrimary"
+       android:textColor="@android:color/white"
        android:textSize="21sp"
        />
 
@@ -33,7 +33,7 @@
         android:layout_height="55dp"
         customAttr:clickEnable="true"
         customAttr:isHorizontal="false"
-        customAttr:speed="3"
+        customAttr:speed="2"
         customAttr:text="1234567890ABCDEFGHIJKLMNOPQRESUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
         customAttr:textColor="#ffffffff"
         android:background="#99336699"

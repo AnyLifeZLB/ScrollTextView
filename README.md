@@ -9,6 +9,7 @@ Android 滚动字幕，如新闻联播下面的，可以使用在广告机，机
 
 
 继承SurfaceView 实现，CPU 占用低，无内存抖动，在Nexus5X，Android 7.0 上测试流畅
+
 Any questions,please contact me at:anylife.zlb@gmail.com
 
 

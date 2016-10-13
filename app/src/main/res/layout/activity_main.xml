@@ -14,7 +14,7 @@
        android:textSize="21sp"
        />
 
-    <com.anylife.fragment.scrolltextview.ScrollTextView
+    <anylife.scrolltextview.ScrollTextView
         android:layout_marginTop="33dp"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
@@ -27,7 +27,7 @@
         customAttr:textSize="21sp"
         customAttr:times="567" />
 
-    <com.anylife.fragment.scrolltextview.ScrollTextView
+    <anylife.scrolltextview.ScrollTextView
         android:layout_marginTop="33dp"
         android:layout_width="wrap_content"
         android:layout_height="55dp"

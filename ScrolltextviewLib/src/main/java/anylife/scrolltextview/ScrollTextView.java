@@ -1,4 +1,4 @@
-package com.anylife.fragment.scrolltextview;
+package anylife.scrolltextview;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,10 +23,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
+ *
+ *
  * Android 滚动字幕，如新闻联播下面的，可以使用在广告机，机顶盒，电视App等信息发布系统。
- *
  * android  Videoview 也是extends SurfaceView
- *
  */
 public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
 	private final String TAG = "ScrollTextView";

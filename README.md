@@ -1,7 +1,6 @@
 # ScrollTextView
 Class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback
 
-非中国区不可用于商业项目
 
 Android 滚动字幕，如新闻联播下面的，可以使用在广告机，机顶盒，电视App等信息发布系统。
 以前是在信息发布系统上使用过，作为动态布局的一部分，题外话，如果有想做像分众传媒或者

@@ -2,25 +2,21 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0" //版本号，每次提交到Jcenter都要修改
-def siteUrl = "https://github.com/AnyLifeZLB/ScrollTextView"   // project homepage
+version = "1.1" //版本号，每次提交到Jcenter都要修改
+def siteUrl = "https://github.com/AnyLifeZLB/ScrollTextView"       // project homepage
 def gitUrl = "https://github.com/AnyLifeZLB/ScrollTextView.git"    // project git
 group = "anylife.scrolltextview"
-
 
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
-    resourcePrefix "wavever_"  //资源前缀 ??????????
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -57,7 +53,7 @@ install {
                 developers {
                     developer {
                         id 'anylifezlb'
-                        name '曾清远'
+                        name 'anylifezlb'
                         email 'anylife.zlb@gmail.com'
                     }
                 }

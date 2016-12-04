@@ -8,7 +8,8 @@ Android 滚动字幕，如新闻联播下面的，可以使用在广告机，机
 动态布局专利：http://www.google.com/patents/CN103336691A?cl=zh （要翻墙）
 
 
-继承SurfaceView 实现，CPU 占用低，无内存抖动，在Nexus5X，Android 7.0 上测试流畅
+继承SurfaceView 实现，CPU 占用低，无内存抖动，在Nexus5X，Android 7.0 上测试流畅  
+Gif 图看起来卡是为了图像质量和大小的平衡减低帧率。
 
 Any questions,please contact me at:anylife.zlb@gmail.com
 

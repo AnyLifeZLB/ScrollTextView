@@ -24,14 +24,19 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Android auto Scroll Text,like TV News,AD devices
+ *
+ *
  * @author zlb
  */
 public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
 	private final String TAG = "ScrollTextView";
-	private SurfaceHolder holder;
+	// surface Handle onto a raw buffer that is being managed by the screen compositor.
+	private SurfaceHolder surfaceHolder;   //providing access and control over this SurfaceView's underlying surface.
+
 	private Paint paint = null;
 	private boolean bStop = false;          // stop scroll
 
+	//Default value
 	private boolean clickEnable = false;    // click to stop/start
 	private boolean isHorizontal = true;    // horizontal｜V
 	private int speed = 1;                  // scroll-speed
@@ -43,9 +48,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	private int viewWidth = 0;
 	private int viewHeight = 0;
 	private float textWidth = 0f;
-
 	private float density = 1;
-
 	private float textX = 0f;
 	private float textY = 0f;
 	private float viewWidth_plus_textLength = 0.0f;
@@ -70,8 +73,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	 */
 	public ScrollTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		holder = this.getHolder();
-		holder.addCallback(this);
+		surfaceHolder = this.getHolder();  //get The surface holder
+		surfaceHolder.addCallback(this);
 		paint = new Paint();
 		TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.ScrollText);
 		clickEnable = arr.getBoolean(R.styleable.ScrollText_clickEnable, clickEnable);
@@ -86,7 +89,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		paint.setColor(textColor);
 		paint.setTextSize(textSize);
 
-		setZOrderOnTop(true);
+		setZOrderOnTop(true);  //Control whether the surface view's surface is placed on top of its window.
 		getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
 		DisplayMetrics metric = new DisplayMetrics();
@@ -126,11 +129,14 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	 */
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
-
+		Log.d(TAG,"arg0:"+arg0.toString()+"  arg1:"+arg1+"  arg2:"+arg2+"  arg3:"+arg3);
 	}
 
 	/**
-	 * surfaceCreated
+	 * surfaceCreated,init a new scroll thread.
+	 * lockCanvas
+	 * Draw somthing
+	 * unlockCanvasAndPost
 	 *
 	 * @param holder holder
 	 */
@@ -207,6 +213,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
 	/**
 	 * touch to stop / start
+	 *
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -231,12 +238,12 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	 * @param Y Y
 	 */
 	public synchronized void draw(float X, float Y) {
-		Canvas canvas = holder.lockCanvas();
+		Canvas canvas = surfaceHolder.lockCanvas();
 		canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
 		if (isHorizontal) {
 			canvas.drawText(text, X, Y, paint);
 		}
-		holder.unlockCanvasAndPost(canvas);
+		surfaceHolder.unlockCanvasAndPost(canvas);
 	}
 
 	/**
@@ -265,15 +272,15 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
 		for (int n = 0; n < strings.size(); n++) {
 			for (float i = viewHeight + fontHeight; i > -fontHeight; i = i - 3) {
-				Canvas canvas = holder.lockCanvas();
+				Canvas canvas = surfaceHolder.lockCanvas();
 				canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
 				canvas.drawText(strings.get(n), 0, i, paint);
-				holder.unlockCanvasAndPost(canvas);
+				surfaceHolder.unlockCanvasAndPost(canvas);
 				if (i - GPoint < 4 && i - GPoint > 0) {
 					try {
 						Thread.sleep(speed * 1000);
 					} catch (InterruptedException e) {
-						Log.e("GOD", "hey,what your name ?");
+						Log.e(TAG, e.toString());
 					}
 				}
 			}

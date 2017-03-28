@@ -15,6 +15,7 @@
        />
 
     <anylife.scrolltextview.ScrollTextView
+        android:id="@+id/scrollView1"
         android:layout_marginTop="33dp"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
@@ -28,17 +29,15 @@
         customAttr:times="567" />
 
     <anylife.scrolltextview.ScrollTextView
+        android:id="@+id/scrollView2"
         android:layout_marginTop="33dp"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        customAttr:clickEnable="true"
-        customAttr:isHorizontal="false"
-        customAttr:speed="2"
-        customAttr:text="1234567890ABCDEFGHIJKLMNOPQRESUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
-        customAttr:textColor="#ffffffff"
         android:background="#99336699"
-        customAttr:textSize="21sp"
-        customAttr:times="678" />
+
+        customAttr:isHorizontal="false"
+        customAttr:textColor="#ffffffff"
+        customAttr:textSize="21sp" />
 
 
 </LinearLayout>

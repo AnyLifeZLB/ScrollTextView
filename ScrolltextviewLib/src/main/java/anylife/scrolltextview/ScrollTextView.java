@@ -25,8 +25,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Android auto Scroll Text,like TV News,AD devices
  *
- *
- * @author zlb
+ * @author anylife.zlb@gmail.com
  */
 public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
 	private final String TAG = "ScrollTextView";
@@ -43,7 +42,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	private String text = "";               // scroll text
 	private float textSize = 15f;           // text size
 	private int textColor = Color.BLACK;    // text color
-	private int times = Integer.MAX_VALUE;  // scroll times
+
+	private int defScrolltimes = Integer.MAX_VALUE;  // scroll XX times default,
+	private int needScrollTimes = 0;        //scroll times
 
 	private int viewWidth = 0;
 	private int viewHeight = 0;
@@ -52,7 +53,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	private float textX = 0f;
 	private float textY = 0f;
 	private float viewWidth_plus_textLength = 0.0f;
-	private int time = 0;                  //scroll times
 
 	private ScheduledExecutorService scheduledExecutorService;
 
@@ -83,9 +83,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		text = arr.getString(R.styleable.ScrollText_text);
 		textColor = arr.getColor(R.styleable.ScrollText_textColor, textColor);
 		textSize = arr.getDimension(R.styleable.ScrollText_textSize, textSize);
-		times = arr.getInteger(R.styleable.ScrollText_times, times);
+		defScrolltimes = arr.getInteger(R.styleable.ScrollText_times, defScrolltimes);
 
-		time = times;
+		needScrollTimes = defScrolltimes;
 		paint.setColor(textColor);
 		paint.setTextSize(textSize);
 
@@ -182,10 +182,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 	 */
 	public void setTimes(int times) {
 		if (times <= 0) {
-			this.times = Integer.MAX_VALUE;
+			this.defScrolltimes = Integer.MAX_VALUE;
 		} else {
-			this.times = times;
-			time = times;
+			this.defScrolltimes = times;
+			needScrollTimes = times;
 		}
 	}
 
@@ -211,6 +211,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		}
 	}
 
+
 	/**
 	 * touch to stop / start
 	 *
@@ -223,8 +224,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 				bStop = !bStop;
-				if (!bStop && time == 0) {
-					time = times;
+				if (!bStop && needScrollTimes == 0) {
+					needScrollTimes = defScrolltimes;
 				}
 				break;
 		}
@@ -301,13 +302,13 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 					textX += speed;
 					if (textX > viewWidth_plus_textLength) {
 						textX = 0;
-						--time;
+						--needScrollTimes;
 					}
 				} else {
 					drawVerteclScroll();
-					--time;
+					--needScrollTimes;
 				}
-				if (time <= 0) {
+				if (needScrollTimes <= 0) {
 					bStop = true;
 				}
 			}

@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -98,6 +100,28 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
 		setFocusable(true);
 	}
+
+	/**
+	 * sava status
+	 *
+	 * https://inthecheesefactory.com/blog/fragment-state-saving-best-practices/en
+	 *
+	 * @return
+	 */
+	@Override
+	public Parcelable onSaveInstanceState() {
+		super.onSaveInstanceState();
+		Bundle bundle = new Bundle();
+		// Save current View's state here
+		return bundle;
+	}
+
+	@Override
+	public void onRestoreInstanceState(Parcelable state) {
+		super.onRestoreInstanceState(state);
+		// Restore View's state here
+	}
+
 
 	/**
 	 * measure text height width

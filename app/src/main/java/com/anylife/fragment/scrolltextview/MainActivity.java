@@ -20,5 +20,7 @@ public class MainActivity extends AppCompatActivity {
 		scrollingView2.setSpeed(2);
 		scrollingView2.setTimes(1314);
 
+		getLifecycle().addObserver(scrollingView2);
+
 	}
 }

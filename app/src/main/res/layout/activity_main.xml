@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:customAttr="http://schemas.android.com/apk/res-auto"
-             android:layout_width="fill_parent"
-             android:layout_height="fill_parent"
-             android:background="@android:color/black"
-             android:orientation="vertical" >
+    xmlns:customAttr="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
 
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="1234567890ABCDEFGHIJKLMNOPQRESUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
-       android:textColor="@android:color/white"
-       android:textSize="21sp"
-       />
-
-    <anylife.scrolltextview.ScrollTextView
-        android:id="@+id/scrollView1"
-        android:layout_marginTop="33dp"
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        customAttr:clickEnable="true"
-        customAttr:isHorizontal="true"
-        customAttr:speed="3"
-        customAttr:text="1234567890ABCDEFGHIJKLMNOPQRESUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
-        customAttr:textColor="#ffffffff"
-        android:background="@color/colorPrimaryDark"
-        customAttr:textSize="21sp"
-        customAttr:times="567" />
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:text="1234567890ABCDEFGHIJKLMNOPQRESUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
+        android:textColor="@android:color/white"
+        android:textSize="21sp" />
+
 
     <anylife.scrolltextview.ScrollTextView
         android:id="@+id/scrollView2"
-        android:layout_marginTop="33dp"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
+        android:layout_marginTop="33dp"
         android:background="#99336699"
-
         customAttr:isHorizontal="false"
         customAttr:textColor="#ffffffff"
         customAttr:textSize="21sp" />
 
 
+    <anylife.scrolltextview.ScrollTextView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginTop="33dp"
+        android:background="@color/colorPrimaryDark"
+        customAttr:clickEnable="true"
+        customAttr:isHorizontal="true"
+        customAttr:speed="3"
+        customAttr:text="1234567890ABCDEFGHIJKLMNOPQRESUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
+        customAttr:textColor="#ffffffff"
+        customAttr:textSize="21sp"
+        customAttr:times="567" />
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingTop="44dp"
+        android:text="有问题，请联系 anylife.zlb@gmail.com"
+        android:textColor="@android:color/white"
+        android:textSize="13sp" />
 </LinearLayout>

@@ -3,9 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.0'
 
         //添加一下两个classpath
         // for jcenter
@@ -22,5 +23,10 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        google()
+        maven {
+            name "aliyunmaven"
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
+        }
     }
 }

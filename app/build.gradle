@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "com.anylife.fragment.scrolltextview"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -22,6 +21,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile project(':ScrolltextviewLib')
+
+    //For Lifecycles, LiveData, and ViewModel
+    compile "android.arch.lifecycle:runtime:1.0.3"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+    compile  "android.arch.lifecycle:extensions:1.0.0" //添加ext 依赖
+
 }

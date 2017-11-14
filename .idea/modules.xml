@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ScrollTextView.iml" filepath="$PROJECT_DIR$/.idea/ScrollTextView.iml" />
       <module fileurl="file://$PROJECT_DIR$/ScrollTextView.iml" filepath="$PROJECT_DIR$/ScrollTextView.iml" />
       <module fileurl="file://$PROJECT_DIR$/ScrolltextviewLib/ScrolltextviewLib.iml" filepath="$PROJECT_DIR$/ScrolltextviewLib/ScrolltextviewLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScrolltextviewLib/ScrolltextviewLib.iml" filepath="$PROJECT_DIR$/ScrolltextviewLib/ScrolltextviewLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

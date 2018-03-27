@@ -1,8 +1,6 @@
 package anylife.scrolltextview;
 
 import android.app.Activity;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -11,8 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -31,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author anylife.zlb@gmail.com
  */
-public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback, LifecycleObserver {
+public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
     private final String TAG = "ScrollTextView";
     // surface Handle onto a raw buffer that is being managed by the screen compositor.
     private SurfaceHolder surfaceHolder;   //providing access and control over this SurfaceView's underlying surface.
@@ -47,7 +43,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private float textSize = 15f;           // text size
     private int textColor = Color.BLACK;    // text color
 
-    private int defScrolltimes = Integer.MAX_VALUE;  // scroll XX times default,
+    private int defScrollTimes = Integer.MAX_VALUE;  // scroll XX times default,
     private int needScrollTimes = 0;        //scroll times
 
     private int viewWidth = 0;
@@ -59,12 +55,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private float viewWidth_plus_textLength = 0.0f;
 
     private ScheduledExecutorService scheduledExecutorService;
-    private Lifecycle lifecycle;
-
-
-    public void setLifecycle(Lifecycle lifecycle) {
-        this.lifecycle = lifecycle;
-    }
 
 
     /**
@@ -79,8 +69,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     /**
      * constructs 2
      *
-     * @param context
-     * @param attrs
+     * @param context CONTEXT
+     * @param attrs   ATTRS
      */
     public ScrollTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -94,9 +84,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         text = arr.getString(R.styleable.ScrollText_text);
         textColor = arr.getColor(R.styleable.ScrollText_textColor, textColor);
         textSize = arr.getDimension(R.styleable.ScrollText_textSize, textSize);
-        defScrolltimes = arr.getInteger(R.styleable.ScrollText_times, defScrolltimes);
+        defScrollTimes = arr.getInteger(R.styleable.ScrollText_times, defScrollTimes);
 
-        needScrollTimes = defScrolltimes;
+        needScrollTimes = defScrollTimes;
         paint.setColor(textColor);
         paint.setTextSize(textSize);
 
@@ -110,33 +100,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         setFocusable(true);
     }
 
-	/**
-	 * sava status
-	 *
-	 * https://inthecheesefactory.com/blog/fragment-state-saving-best-practices/en
-	 *
-	 * @return
-	 */
-	@Override
-	public Parcelable onSaveInstanceState() {
-		super.onSaveInstanceState();
-		Bundle bundle = new Bundle();
-		// Save current View's state here
-		return bundle;
-	}
-
-	@Override
-	public void onRestoreInstanceState(Parcelable state) {
-		super.onRestoreInstanceState(state);
-		// Restore View's state here
-	}
-
-
     /**
      * measure text height width
      *
-     * @param widthMeasureSpec
-     * @param heightMeasureSpec
+     * @param widthMeasureSpec  widthMeasureSpec
+     * @param heightMeasureSpec heightMeasureSpec
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -181,17 +149,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         Log.d(TAG, "ScrollTextTextView is created");
     }
 
-//	@OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-//	void onStop() {
-//		bStop=true;
-//	}
-//
-//	@OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-//	void onRestart() {
-//		bStop=false;
-//	}
-
-
     /**
      * surfaceDestroyed
      *
@@ -199,9 +156,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      */
     @Override
     public void surfaceDestroyed(SurfaceHolder arg0) {
-        // TODO Auto-generated method stub
         bStop = true;
-//        scheduledExecutorService.shutdown();
         scheduledExecutorService.shutdownNow();
         Log.d(TAG, "ScrollTextTextView is destroyed");
     }
@@ -226,9 +181,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      */
     public void setTimes(int times) {
         if (times <= 0) {
-            this.defScrolltimes = Integer.MAX_VALUE;
+            this.defScrollTimes = Integer.MAX_VALUE;
         } else {
-            this.defScrolltimes = times;
+            this.defScrollTimes = times;
             needScrollTimes = times;
         }
     }
@@ -245,7 +200,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     /**
      * set scroll speed
      *
-     * @param speed
+     * @param speed  SCROLL SPEED [0,10] ///// 0?
      */
     public void setSpeed(int speed) {
         if (speed > 10 || speed < 0) {
@@ -268,7 +223,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             case MotionEvent.ACTION_DOWN:
                 bStop = !bStop;
                 if (!bStop && needScrollTimes == 0) {
-                    needScrollTimes = defScrolltimes;
+                    needScrollTimes = defScrollTimes;
                 }
                 break;
         }
@@ -363,4 +318,5 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             }
         }
     }
+
 }

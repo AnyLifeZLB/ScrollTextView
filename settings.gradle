@@ -1,1 +1,1 @@
-include ':app', ':ScrolltextviewLib'
+include ':app', ':ScrollTextviewLib'

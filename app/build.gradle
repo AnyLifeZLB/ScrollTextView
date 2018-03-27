@@ -10,23 +10,23 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:26.1.0'
-    compile project(':ScrolltextviewLib')
 
-    //For Lifecycles, LiveData, and ViewModel
-    compile "android.arch.lifecycle:runtime:1.0.3"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
-    compile  "android.arch.lifecycle:extensions:1.0.0" //添加ext 依赖
+//    compile project(':ScrollTextviewLib')                //依赖 library ScrollTextViewLib
+    compile 'anylife.scrolltextview:ScrollTextviewLib:1.1'  //when OK
 
 }

@@ -1,3 +1,18 @@
+# Gradle 集成使用
+```
+ compile 'anylife.scrolltextview:ScrollTextviewLib:1.1'
+```
+
+# Maven 集成使用
+```
+<dependency>
+  <groupId>anylife.scrolltextview</groupId>
+  <artifactId>ScrollTextviewLib</artifactId>
+  <version>1.1</version>
+  <type>pom</type>
+</dependency>
+```
+
 # ScrollTextView
 Class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback
 

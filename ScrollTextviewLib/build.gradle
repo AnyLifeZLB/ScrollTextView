@@ -1,11 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.jfrog.bintray'  //jfrog
 
-version = "1.1" //版本号，每次提交到Jcenter都要修改
-def siteUrl = "https://github.com/AnyLifeZLB/ScrollTextView"       // project homepage
-def gitUrl = "https://github.com/AnyLifeZLB/ScrollTextView.git"    // project git
-group = "anylife.scrolltextview"
+
 
 android {
     compileSdkVersion 26
@@ -17,12 +14,14 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -34,6 +33,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+
+version = "1.1" //版本号，每次提交到Jcenter都要修改
+def siteUrl = "https://github.com/AnyLifeZLB/ScrollTextView"       // project homepage
+def gitUrl  = "https://github.com/AnyLifeZLB/ScrollTextView.git"    // project git
+group = "anylife.scrolltextview"
 
 install {
     repositories.mavenInstaller {
@@ -92,12 +96,13 @@ artifacts {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 bintray {
+
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "maven"
-        name = "ScrollTextView" // project name in jcenter
+        repo = "ScrollTextView"
+        name = "ScrollTextView"   // project name in jCenter
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]

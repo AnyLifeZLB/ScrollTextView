@@ -1,6 +1,26 @@
+#How to use
+```
+    <anylife.scrolltextview.ScrollTextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/imageView2"
+        android:layout_marginRight="6dp"
+        android:singleLine="true"
+        customAttr:clickEnable="true"
+        customAttr:isHorizontal="true"
+        customAttr:speed="1"
+        customAttr:text="ScrollTextView Auto Scroll.1234567890,"
+        customAttr:text_size="14sp"
+        customAttr:text_color="#ffffffff"
+        customAttr:times="567" />
+```
+
+
 # Gradle 集成使用
 ```
- compile 'anylife.scrolltextview:ScrollTextviewLib:1.1'
+ compile 'anylife.scrolltextview:ScrollTextviewLib:1.3' [new]
 ```
 
 # Maven 集成使用
@@ -8,7 +28,7 @@
 <dependency>
   <groupId>anylife.scrolltextview</groupId>
   <artifactId>ScrollTextviewLib</artifactId>
-  <version>1.1</version>
+  <version>1.3</version>
   <type>pom</type>
 </dependency>
 ```

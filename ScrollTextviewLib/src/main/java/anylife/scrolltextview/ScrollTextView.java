@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,11 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Android auto Scroll Text,like TV News,AD devices
+ * <p>
+ * NEWEST LOG :
+ * 1.
  *
- * @author anylife.zlb@gmail.com
+ * @author anylife.zlb@gmail.com  2013/09/02
  */
 public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
     private final String TAG = "ScrollTextView";
@@ -37,7 +41,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
     //Default value
     private boolean clickEnable = false;    // click to stop/start
-    private boolean isHorizontal = true;    // horizontal｜V
+    public boolean isHorizontal = true;    // horizontal｜V
     private int speed = 1;                  // scroll-speed
     private String text = "";               // scroll text
     private float textSize = 15f;           // text size
@@ -82,8 +86,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         isHorizontal = arr.getBoolean(R.styleable.ScrollText_isHorizontal, isHorizontal);
         speed = arr.getInteger(R.styleable.ScrollText_speed, speed);
         text = arr.getString(R.styleable.ScrollText_text);
-        textColor = arr.getColor(R.styleable.ScrollText_textColor, textColor);
-        textSize = arr.getDimension(R.styleable.ScrollText_textSize, textSize);
+        textColor = arr.getColor(R.styleable.ScrollText_text_color, textColor);
+        textSize = arr.getDimension(R.styleable.ScrollText_text_size, textSize);
         defScrollTimes = arr.getInteger(R.styleable.ScrollText_times, defScrollTimes);
 
         needScrollTimes = defScrollTimes;
@@ -109,16 +113,27 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // TODO Auto-generated method stub
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int mHeight = getFontHeight(textSize);  //实际的视图高
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
-        if (isHorizontal) {
-            textWidth = paint.measureText(text);
-            viewWidth_plus_textLength = viewWidth + textWidth;
-            textY = (viewHeight + getFontHeight(textSize / density)) / 2 + getPaddingTop() - getPaddingBottom() + 2;
-            Log.e("TAG", "textY:" + textY);
+
+
+        // when layout width or height is wrap_content ,should init ScrollTextView Width/Height
+        if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT && getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            setMeasuredDimension(viewWidth, mHeight);
+            viewHeight = mHeight;
+        } else if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            setMeasuredDimension(viewWidth, viewHeight);
+        } else if (getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            setMeasuredDimension(viewWidth, mHeight);
+            viewHeight = mHeight;
         }
+
     }
+
 
     /**
      * surfaceChanged
@@ -145,7 +160,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     public void surfaceCreated(SurfaceHolder holder) {
         bStop = false;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleAtFixedRate(new ScrollTextThread(), 1000, 10, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(new ScrollTextThread(), 10, 10, TimeUnit.MILLISECONDS);
         Log.d(TAG, "ScrollTextTextView is created");
     }
 
@@ -189,18 +204,28 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     /**
+     * isHorizontal or vertical
+     *
+     * @param horizontal isHorizontal or vertical
+     */
+    public void setHorizontal(boolean horizontal) {
+        isHorizontal = horizontal;
+    }
+
+    /**
      * set scroll text
      *
      * @param text scroll text
      */
     public void setText(String text) {
+        bStop = false;
         this.text = text;
     }
 
     /**
      * set scroll speed
      *
-     * @param speed  SCROLL SPEED [0,10] ///// 0?
+     * @param speed SCROLL SPEED [0,10] ///// 0?
      */
     public void setSpeed(int speed) {
         if (speed > 10 || speed < 0) {
@@ -239,14 +264,12 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     public synchronized void draw(float X, float Y) {
         Canvas canvas = surfaceHolder.lockCanvas();
         canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-        if (isHorizontal) {
-            canvas.drawText(text, X, Y, paint);
-        }
+        canvas.drawText(text, X, Y, paint);
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
     /**
-     * scroll text vertecl
+     * scroll text vertical
      */
     private void drawVerticalScroll() {
         List<String> strings = new ArrayList<>();
@@ -272,7 +295,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             if (bStop) {
                 return;
             }
-            Log.e(TAG, Thread.currentThread().getName() + "  Drawing:   " + strings.get(n) + "\n");
+//            Log.e(TAG, Thread.currentThread().getName() + "  Drawing:   " + strings.get(n) + "\n");
             for (float i = viewHeight + fontHeight; i > -fontHeight; i = i - 3) {
                 Canvas canvas = surfaceHolder.lockCanvas();
                 canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
@@ -299,8 +322,21 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     class ScrollTextThread implements Runnable {
         @Override
         public void run() {
-            // TODO Auto-generated method stub
+
+            textWidth = paint.measureText(text);
+            viewWidth_plus_textLength = viewWidth + textWidth;
+            textY = (viewHeight + getFontHeight(textSize / density)) / 2 + getPaddingTop() - getPaddingTop();
+            textX = viewWidth - viewWidth / 5;
+
             while (!bStop) {
+
+                // NoNeed Scroll
+                if (textWidth < getWidth()) {
+                    draw(1, textY);
+                    bStop = true;
+                    break;
+                }
+
                 if (isHorizontal) {
                     draw(viewWidth - textX, textY);
                     textX += speed;
@@ -312,9 +348,12 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                     drawVerticalScroll();
                     --needScrollTimes;
                 }
+
                 if (needScrollTimes <= 0) {
                     bStop = true;
                 }
+
+
             }
         }
     }

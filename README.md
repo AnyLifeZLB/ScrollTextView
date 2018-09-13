@@ -33,7 +33,7 @@
 </dependency>
 ```
 
-# ScrollTextView
+# About ScrollTextView
 Class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback
 
 

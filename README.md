@@ -52,5 +52,5 @@ Any questions,please contact me at:anylife.zlb@gmail.com
 
 ![image](https://github.com/AnyLifeZLB/ScrollTextView/raw/master/GIF.gif)
 
-![13591536830069_.pic_hd.jpg](https://upload-images.jianshu.io/upload_images/2376786-3ee963019183b49f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 

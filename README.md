@@ -20,7 +20,7 @@
 
 # Gradle 集成使用
 ```
- compile 'anylife.scrolltextview:ScrollTextviewLib:1.3' [new]
+ compile 'anylife.scrolltextview:ScrollTextviewLib:1.3.5' [new]
 ```
 
 # Maven 集成使用
@@ -28,7 +28,7 @@
 <dependency>
   <groupId>anylife.scrolltextview</groupId>
   <artifactId>ScrollTextviewLib</artifactId>
-  <version>1.3</version>
+  <version>1.3.5</version>
   <type>pom</type>
 </dependency>
 ```

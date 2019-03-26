@@ -64,9 +64,12 @@
 
         <View
             android:id="@+id/view2"
-            android:layout_width="1dp"
-            android:layout_height="40dp"
+            android:layout_width="1px"
+            android:layout_height="33dp"
             android:background="#ffffffff"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -102,9 +105,11 @@
 
         <View
             android:id="@+id/view1"
-            android:layout_width="1dp"
-            android:layout_height="40dp"
+            android:layout_width="1px"
+            android:layout_height="33dp"
             android:background="#ffffffff"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -125,60 +130,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="33dp"
+        android:layout_margin="33dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraint_layout_2">
 
-        <LinearLayout
-            android:id="@+id/cancel_welcome"
-            android:layout_width="wrap_content"
+
+
+        <!--// 滚动字幕-->
+        <anylife.scrolltextview.ScrollTextView
+            android:id="@+id/scrollText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/go_welcome"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent">
+            android:singleLine="true"
+            customAttr:clickEnable="true"
+            customAttr:isHorizontal="true"
+            customAttr:speed="4"
+            customAttr:text="这是滚动字幕，这是滚动的字幕，ABCDEFGHIJK1234567890"
+            customAttr:text_color="@color/colorAccent"
+            customAttr:text_size="19sp"
+            customAttr:times="567" />
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/cancel" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="8dp"
-                android:text="忽略"
-                android:textColor="#ffffffff"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/go_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cancel_welcome">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/service" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="8dp"
-                android:text="忽略"
-                android:textColor="#ffffffff"
-                android:textSize="12sp" />
-        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 

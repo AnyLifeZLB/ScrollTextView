@@ -18,13 +18,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //下面的不看了🙈
+
+
         TextView titleText=findViewById(R.id.item1).findViewById(R.id.item_title);
         titleText.setText("房号");
         ImageView itemIcon=findViewById(R.id.item1).findViewById(R.id.item_icon);
         itemIcon.setImageResource(R.drawable.room_no);
 
         ScrollTextView scrollTextView1=findViewById(R.id.item1).findViewById(R.id.item_content);
-        scrollTextView1.setText("深圳慧风雅苑净书阁B栋712");
+        scrollTextView1.setText("深圳慧风雅苑净书阁X栋A12");
         scrollTextView1.setHorizontal(false);
 
 
@@ -37,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         ScrollTextView scrollTextView2=findViewById(R.id.item2).findViewById(R.id.item_content);
         scrollTextView2.setText("(+86)1882656207x");
         scrollTextView2.setHorizontal(true);
-
-
 
 
 

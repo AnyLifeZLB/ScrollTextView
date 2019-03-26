@@ -17,9 +17,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
+        ScrollTextView scrollText=findViewById(R.id.scrollText);
+        scrollText.setSpeed(4);
+        scrollText.setText("746736547832657843625784328564832658432656478237dafdasfdsafdasf");
 
 
 

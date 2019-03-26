@@ -45,7 +45,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private int speed = 1;                  // scroll-speed
     private String text = "";               // scroll text
     private float textSize = 15f;           // text size
-    private int textColor = Color.BLACK;    // text color
 
     private int defScrollTimes = Integer.MAX_VALUE;  // scroll XX times default,
     private int needScrollTimes = 0;        //scroll times
@@ -59,6 +58,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private float viewWidth_plus_textLength = 0.0f;
 
     private ScheduledExecutorService scheduledExecutorService;
+
+    boolean isSetNewText=false;
 
 
     /**
@@ -86,7 +87,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         isHorizontal = arr.getBoolean(R.styleable.ScrollText_isHorizontal, isHorizontal);
         speed = arr.getInteger(R.styleable.ScrollText_speed, speed);
         text = arr.getString(R.styleable.ScrollText_text);
-        textColor = arr.getColor(R.styleable.ScrollText_text_color, textColor);
+        int textColor = arr.getColor(R.styleable.ScrollText_text_color, Color.BLACK);
         textSize = arr.getDimension(R.styleable.ScrollText_text_size, textSize);
         defScrollTimes = arr.getInteger(R.styleable.ScrollText_times, defScrollTimes);
 
@@ -100,8 +101,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         DisplayMetrics metric = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metric);
         density = metric.density;
-
         setFocusable(true);
+
+        arr.recycle();
     }
 
     /**
@@ -215,11 +217,21 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     /**
      * set scroll text
      *
-     * @param text scroll text
+     * @param newText scroll text
      */
-    public void setText(String text) {
+    public void setText(String newText) {
+        isSetNewText=true;
+
         bStop = false;
-        this.text = text;
+        this.text = newText;
+
+
+        //有可能字符长度改变了
+        textWidth = paint.measureText(text);
+        viewWidth_plus_textLength = viewWidth + textWidth;
+        textY = (viewHeight + getFontHeight(textSize / density)) / 2 + getPaddingTop() - getPaddingTop();
+        textX = viewWidth - viewWidth / 5;
+
     }
 
     /**
@@ -270,6 +282,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
     /**
      * scroll text vertical
+     *
      */
     private void drawVerticalScroll() {
         List<String> strings = new ArrayList<>();
@@ -288,6 +301,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             }
         }
 
+
+
         float fontHeight = getFontHeight(textSize / density);
         int GPoint = ((int) fontHeight + viewHeight) / 2;
 
@@ -301,6 +316,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                 canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
                 canvas.drawText(strings.get(n), 0, i, paint);
                 surfaceHolder.unlockCanvasAndPost(canvas);
+
+                if(isSetNewText){
+                    return;
+                }
+
                 if (i - GPoint < 4 && i - GPoint > 0) {
                     if (bStop) {
                         return;
@@ -316,8 +336,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
     }
 
+
+
     /**
      * Scroll thread
+     *
      */
     class ScrollTextThread implements Runnable {
         @Override
@@ -346,6 +369,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                     }
                 } else {
                     drawVerticalScroll();
+                    isSetNewText=false;
                     --needScrollTimes;
                 }
 

@@ -20,7 +20,7 @@
 
 # Gradle 集成使用
 ```
- compile 'anylife.scrolltextview:ScrollTextviewLib:1.3.5' [new]
+ implementation 'anylife.scrolltextview:ScrollTextviewLib:1.3.5' [new]
 ```
 
 # Maven 集成使用

@@ -35,8 +35,7 @@
             customAttr:speed="2"
             customAttr:text="It is default text"
             customAttr:text_color="#ffffffff"
-            customAttr:text_size="16sp"
-            customAttr:times="567" />
+            customAttr:text_size="16sp" />
 
         <TextView
             android:id="@+id/item_title"

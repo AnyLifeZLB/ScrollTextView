@@ -18,16 +18,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageView imageView;
 
-    String S="";
-
+    String tempStr="";
 
 
 
 
     @Override
     public void onClick(View view) {
-        S=S+SystemClock.currentThreadTimeMillis();
-        scrollText.setText(S+"-"); //测试动态改变TextView
+        tempStr=tempStr+SystemClock.currentThreadTimeMillis();
+        scrollText.setText(tempStr+"-");
     }
 
     @Override
@@ -37,10 +36,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         scrollText = findViewById(R.id.scrollText);
         scrollText.setSpeed(4);
-        scrollText.setText("746736547832657843625784328564832658432656478237dafdasfdsafdasf");
+        scrollText.setHorizontal(false);
+        scrollText.setText("你打扰到我学习了1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz");
 
         imageView=findViewById(R.id.imageView);
         imageView.setOnClickListener(this);  //测试动态改变TextView
+
+
+
+
+
 
 
 

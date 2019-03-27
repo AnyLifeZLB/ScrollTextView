@@ -130,7 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_margin="33dp"
+        android:layout_margin="16dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraint_layout_2">
@@ -140,16 +140,33 @@
         <!--// 滚动字幕-->
         <anylife.scrolltextview.ScrollTextView
             android:id="@+id/scrollText"
+            android:background="#55336699"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:singleLine="true"
             customAttr:clickEnable="true"
             customAttr:isHorizontal="true"
             customAttr:speed="4"
-            customAttr:text="这是滚动字幕，这是滚动的字幕，ABCDEFGHIJK1234567890"
+            customAttr:text="你打扰到我学习了1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
             customAttr:text_color="@color/colorAccent"
-            customAttr:text_size="19sp"
-            customAttr:times="567" />
+            customAttr:text_size="30sp" />
+
+
+        <anylife.scrolltextview.ScrollTextView
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollText"
+            android:layout_marginTop="16dp"
+            android:id="@+id/scrollText2"
+            android:background="#99224433"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:singleLine="true"
+            customAttr:clickEnable="true"
+            customAttr:isHorizontal="true"
+            customAttr:speed="4"
+            customAttr:text="你打扰到我学习了1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
+            customAttr:text_color="@android:color/white"
+            customAttr:text_size="22sp" />
 
 
     </android.support.constraint.ConstraintLayout>

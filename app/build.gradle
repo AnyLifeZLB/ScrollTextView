@@ -28,7 +28,7 @@ dependencies {
 
     implementation project(':ScrollTextviewLib')                //依赖 library ScrollTextViewLib
 
-//    implementation 'anylife.scrolltextview:ScrollTextviewLib:1.3.6'  //when OK
+//    implementation 'anylife.scrolltextview:ScrollTextviewLib:1.4.2'  //when OK
 
 
 

@@ -348,7 +348,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         viewWidth_plus_textLength = viewWidth + textWidth;
         textX = viewWidth - viewWidth / 5;
 //        textY = (viewHeight + getFontHeight(textSize / density)) / 2 + getPaddingTop() - getPaddingTop();
-
 //        Rect bgRect = new Rect(0, 0, viewWidth, viewHeight);
         //baseline measure
         Paint.FontMetrics fontMetrics = paint.getFontMetrics();

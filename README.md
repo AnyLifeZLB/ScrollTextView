@@ -1,4 +1,4 @@
-#How to use
+# How to use
 ```
     <anylife.scrolltextview.ScrollTextView
         android:id="@+id/textView2"
@@ -15,6 +15,14 @@
         customAttr:text_size="14sp"
         customAttr:text_color="#ffffffff"
         customAttr:times="567" />
+```
+
+或者在代码中
+
+```
+    scrollText = findViewById(R.id.scrollText);
+    scrollText.setSpeed(4);
+    scrollText.setText("new text");  //已经修改setText() 没能动态生效的问题
 ```
 
 

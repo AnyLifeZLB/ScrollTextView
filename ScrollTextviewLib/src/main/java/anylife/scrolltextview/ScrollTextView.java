@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
     private Paint paint = null;
     private boolean stopScroll = false;          // stop scroll
+    private boolean pauseScroll = false;         // pause scroll
 
     //Default value
     private boolean clickEnable = false;    // click to stop/start
@@ -159,7 +161,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     public void surfaceCreated(SurfaceHolder holder) {
         stopScroll = false;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleAtFixedRate(new ScrollTextThread(), 10, 10, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(new ScrollTextThread(), 100, 100, TimeUnit.MILLISECONDS);
         Log.d(TAG, "ScrollTextTextView is created");
     }
 
@@ -260,14 +262,16 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                stopScroll = !stopScroll;
-                if (!stopScroll && needScrollTimes == 0) {
-                    needScrollTimes = Integer.MAX_VALUE;
-                }
+                pauseScroll = !pauseScroll;
+//                stopScroll = !stopScroll;
+//                if (!stopScroll && needScrollTimes == 0) {
+//                    needScrollTimes = Integer.MAX_VALUE;
+//                }
                 break;
         }
         return true;
     }
+
 
 
     /**
@@ -292,9 +296,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
         float fontHeight = paint.getFontMetrics().bottom - paint.getFontMetrics().top;
 
-//        int baseLine = ((int) fontHeight + viewHeight) / 2;
-
-        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        FontMetrics fontMetrics = paint.getFontMetrics();
         float distance = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
         float baseLine = viewHeight / 2 + distance;
 
@@ -304,6 +306,15 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
                 if (stopScroll || isSetNewText) {
                     return;
+                }
+
+                if (pauseScroll) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    continue;
                 }
 
                 Canvas canvas = surfaceHolder.lockCanvas();
@@ -340,6 +351,12 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
 
+    @Override
+    protected void onVisibilityChanged(View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        this.setVisibility(visibility);
+    }
+
     /**
      * measure tex
      */
@@ -347,10 +364,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         textWidth = paint.measureText(text);
         viewWidth_plus_textLength = viewWidth + textWidth;
         textX = viewWidth - viewWidth / 5;
-//        textY = (viewHeight + getFontHeight(textSize / density)) / 2 + getPaddingTop() - getPaddingTop();
-//        Rect bgRect = new Rect(0, 0, viewWidth, viewHeight);
+
         //baseline measure
-        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        FontMetrics fontMetrics = paint.getFontMetrics();
         float distance = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
         textY = viewHeight / 2 + distance;
     }
@@ -374,7 +390,18 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                     break;
                 }
 
+
                 if (isHorizontal) {
+
+                    if (pauseScroll) {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            Log.e(TAG, e.toString());
+                        }
+                        continue;
+                    }
+
                     draw(viewWidth - textX, textY);
                     textX += speed;
                     if (textX > viewWidth_plus_textLength) {
@@ -382,9 +409,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                         --needScrollTimes;
                     }
                 } else {
+
                     drawVerticalScroll();
                     isSetNewText = false;
                     --needScrollTimes;
+
                 }
 
                 if (needScrollTimes <= 0 && isScrollForever) {

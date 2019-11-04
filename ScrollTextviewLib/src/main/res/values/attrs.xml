@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="ScrollText">
+    <declare-styleable name="ScrollTextView">
         <attr name="clickEnable" format="boolean" />
         <attr name="isHorizontal" format="boolean" />
         <attr name="speed" format="integer" />

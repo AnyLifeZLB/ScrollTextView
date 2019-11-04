@@ -28,10 +28,7 @@ import java.util.concurrent.TimeUnit;
  * NEWEST LOG :
  * 1.setText() immediately take effect (v1.3.6)
  * 2.support scroll forever            (v1.3.7)
- * <p>
- * <p>
- * <p>
- * <p>
+ *
  * Basic knowledge：https://www.jianshu.com/p/918fec73a24d
  *
  * @author anylife.zlb@gmail.com  2013/09/02
@@ -86,15 +83,15 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         surfaceHolder = this.getHolder();  //get The surface holder
         surfaceHolder.addCallback(this);
         paint = new Paint();
-        TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.ScrollText);
-        clickEnable = arr.getBoolean(R.styleable.ScrollText_clickEnable, clickEnable);
-        isHorizontal = arr.getBoolean(R.styleable.ScrollText_isHorizontal, isHorizontal);
-        speed = arr.getInteger(R.styleable.ScrollText_speed, speed);
-        text = arr.getString(R.styleable.ScrollText_text);
-        int textColor = arr.getColor(R.styleable.ScrollText_text_color, Color.BLACK);
-        textSize = arr.getDimension(R.styleable.ScrollText_text_size, textSize);
-        needScrollTimes = arr.getInteger(R.styleable.ScrollText_times, Integer.MAX_VALUE);
-        isScrollForever = arr.getBoolean(R.styleable.ScrollText_isScrollForever, true);
+        TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.ScrollTextView);
+        clickEnable = arr.getBoolean(R.styleable.ScrollTextView_clickEnable, clickEnable);
+        isHorizontal = arr.getBoolean(R.styleable.ScrollTextView_isHorizontal, isHorizontal);
+        speed = arr.getInteger(R.styleable.ScrollTextView_speed, speed);
+        text = arr.getString(R.styleable.ScrollTextView_text);
+        int textColor = arr.getColor(R.styleable.ScrollTextView_text_color, Color.BLACK);
+        textSize = arr.getDimension(R.styleable.ScrollTextView_text_size, textSize);
+        needScrollTimes = arr.getInteger(R.styleable.ScrollTextView_times, Integer.MAX_VALUE);
+        isScrollForever = arr.getBoolean(R.styleable.ScrollTextView_isScrollForever, true);
 
         paint.setColor(textColor);
         paint.setTextSize(textSize);
@@ -202,7 +199,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             needScrollTimes = times;
             isScrollForever = false;
         }
-
     }
 
     /**
@@ -273,7 +269,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
 
-
     /**
      * scroll text vertical
      */
@@ -334,7 +329,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                 }
             }
         }
-
     }
 
     /**
@@ -390,9 +384,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                     break;
                 }
 
-
                 if (isHorizontal) {
-
                     if (pauseScroll) {
                         try {
                             Thread.sleep(500);
@@ -409,11 +401,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                         --needScrollTimes;
                     }
                 } else {
-
                     drawVerticalScroll();
                     isSetNewText = false;
                     --needScrollTimes;
-
                 }
 
                 if (needScrollTimes <= 0 && isScrollForever) {

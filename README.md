@@ -22,13 +22,15 @@
 ```
     scrollText = findViewById(R.id.scrollText);
     scrollText.setSpeed(4);
-    scrollText.setText("new text");  //已经修改setText() 没能动态生效的问题
+    scrollText.setText("new text");
+    scrollText.setTextColor(0xffad43ae);
+
 ```
 
 
 # Gradle 集成使用
 ```
- implementation 'anylife.scrolltextview:ScrollTextviewLib:1.4.5'  
+ implementation 'anylife.scrolltextview:ScrollTextviewLib:1.4.6'
 ```
 
 # Maven 集成使用
@@ -36,7 +38,7 @@
 <dependency>
   <groupId>anylife.scrolltextview</groupId>
   <artifactId>ScrollTextviewLib</artifactId>
-  <version>1.4.5</version>
+  <version>1.4.6</version>
   <type>pom</type>
 </dependency>
 ```

@@ -40,11 +40,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scrollText.setText("你打扰到我学习了1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz");
 
         imageView=findViewById(R.id.imageView);
-        imageView.setOnClickListener(this);  //测试动态改变TextView
-
-
-
-
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollText.setTextColor(0xffaa3456);
+            }
+        });  //测试动态改变TextView
 
 
 

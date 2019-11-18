@@ -1,6 +1,7 @@
 package anylife.scrolltextview;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -48,6 +50,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private int speed = 1;                  // scroll-speed
     private String text = "";               // scroll text
     private float textSize = 15f;           // text size
+    private int textColor;
 
     private int needScrollTimes = Integer.MAX_VALUE;      //scroll times
 
@@ -88,7 +91,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         isHorizontal = arr.getBoolean(R.styleable.ScrollTextView_isHorizontal, isHorizontal);
         speed = arr.getInteger(R.styleable.ScrollTextView_speed, speed);
         text = arr.getString(R.styleable.ScrollTextView_text);
-        int textColor = arr.getColor(R.styleable.ScrollTextView_text_color, Color.BLACK);
+        textColor = arr.getColor(R.styleable.ScrollTextView_text_color, Color.BLACK);
         textSize = arr.getDimension(R.styleable.ScrollTextView_text_size, textSize);
         needScrollTimes = arr.getInteger(R.styleable.ScrollTextView_times, Integer.MAX_VALUE);
         isScrollForever = arr.getBoolean(R.styleable.ScrollTextView_isScrollForever, true);
@@ -217,11 +220,21 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      */
     public void setText(String newText) {
         isSetNewText = true;
-
         stopScroll = false;
         this.text = newText;
-
         measureVarious();
+    }
+
+
+
+    /**
+     * Set the text color
+     *
+     * @param color A color value in the form 0xAARRGGBB.
+     */
+    public void setTextColor(@ColorInt int color) {
+        textColor =color;
+        paint.setColor(textColor);
     }
 
 
@@ -259,10 +272,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 pauseScroll = !pauseScroll;
-//                stopScroll = !stopScroll;
-//                if (!stopScroll && needScrollTimes == 0) {
-//                    needScrollTimes = Integer.MAX_VALUE;
-//                }
                 break;
         }
         return true;

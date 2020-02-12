@@ -387,11 +387,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             while (!stopScroll) {
 
                 // NoNeed Scroll
-                if (textWidth < getWidth()) {
-                    draw(1, textY);
-                    stopScroll = true;
-                    break;
-                }
+//                if (textWidth < getWidth()) {
+//                    draw(1, textY);
+//                    stopScroll = true;
+//                    break;
+//                }
 
                 if (isHorizontal) {
                     if (pauseScroll) {

@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.3"
+        versionCode 6
+        versionName "1.4.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,7 +28,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
 }
 
-version = "1.4.6"  //版本号，每次提交到Jcenter都要修改
+version = "1.4.8"  //版本号，每次提交到Jcenter都要修改
 def siteUrl = "https://github.com/AnyLifeZLB/ScrollTextView"       // project homepage
 def gitUrl  = "https://github.com/AnyLifeZLB/ScrollTextView.git"    // project git
 group = "anylife.scrolltextview"

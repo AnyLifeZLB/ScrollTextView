@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String tempStr="";
 
 
-
-
     @Override
     public void onClick(View view) {
         tempStr=tempStr+SystemClock.currentThreadTimeMillis();

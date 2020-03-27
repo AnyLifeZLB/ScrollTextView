@@ -1,5 +1,6 @@
 package com.anylife.fragment.scrolltextview;
 
+import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,17 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 scrollText.setTextColor(0xffaa3456);
+                startActivity(new Intent(MainActivity.this,LauncherActivity.class));
+
             }
         });  //测试动态改变TextView
-
-
-
-
-
-
-
-
-
 
 
 

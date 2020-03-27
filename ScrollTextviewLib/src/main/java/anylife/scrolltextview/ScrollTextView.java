@@ -2,6 +2,7 @@ package anylife.scrolltextview;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,11 +13,13 @@ import android.graphics.PorterDuff.Mode;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * NEWEST LOG :
  * 1.setText() immediately take effect (v1.3.6)
  * 2.support scroll forever            (v1.3.7)
- *
+ * <p>
  * Basic knowledge：https://www.jianshu.com/p/918fec73a24d
  *
  * @author anylife.zlb@gmail.com  2013/09/02
@@ -49,7 +52,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     public boolean isHorizontal = true;     // horizontal｜V
     private int speed = 1;                  // scroll-speed
     private String text = "";               // scroll text
-    private float textSize = 15f;           // text size
+    private float textSize = 20f;           // default text size
     private int textColor;
 
     private int needScrollTimes = Integer.MAX_VALUE;      //scroll times
@@ -117,7 +120,14 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // TODO Auto-generated method stub
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        onMyMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 
+
+    /**
+     * 测量
+     */
+    private void onMyMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int mHeight = getFontHeight(textSize);  //实际的视图高
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
@@ -132,7 +142,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             setMeasuredDimension(viewWidth, mHeight);
             viewHeight = mHeight;
         }
-
     }
 
 
@@ -177,6 +186,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         Log.d(TAG, "ScrollTextTextView is destroyed");
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
     /**
      * text height
      *
@@ -188,6 +202,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         paint.setTextSize(fontSize);
         FontMetrics fm = paint.getFontMetrics();
         return (int) Math.ceil(fm.descent - fm.ascent);
+    }
+
+    public int getViewHeight(){
+
+        return viewHeight;
     }
 
     /**
@@ -203,6 +222,114 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             isScrollForever = false;
         }
     }
+
+
+    /**
+     * set scroll text size
+     *
+     * @param textSize scroll times
+     */
+    public void setTextSize(int textSize) {
+        if (textSize < 15) {
+            throw new IllegalArgumentException("textSize must  > 15");
+        } else if (textSize > 100) {
+            throw new IllegalArgumentException("textSize must  < 100");
+        } else {
+            //重新设置Size
+            paint.setTextSize(sp2px(getContext(), textSize));
+            //试图区域也要改变
+            measureVarious();
+            isSetNewText = true;
+
+            int mHeight = getFontHeight(textSize);  //实际的视图高
+            // when layout width or height is wrap_content ,should init ScrollTextView Width/Height
+            if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT && getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+                setMeasuredDimension(viewWidth, mHeight);
+                viewHeight = mHeight;
+            } else if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT) {
+                setMeasuredDimension(viewWidth, viewHeight);
+            } else if (getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+                setMeasuredDimension(viewWidth, mHeight);
+                viewHeight = mHeight;
+            }
+            requestLayout();
+            invalidate();
+        }
+    }
+
+
+
+    /**
+     * Set the default text size to a given unit and value. See {@link
+     * TypedValue} for the possible dimension units.
+     *
+     * <p>Note: if this TextView has the auto-size feature enabled than this function is no-op.
+     *
+     * @param size The desired size in the given units.
+     * @attr ref android.R.styleable#TextView_textSize
+     */
+    public void setTextSize(float size) {
+        setTextSizeInternal(TypedValue.COMPLEX_UNIT_SP, size, true /* shouldRequestLayout */);
+    }
+
+    private void setTextSizeInternal(int unit, float size, boolean shouldRequestLayout) {
+        Context c = getContext();
+        Resources r;
+
+        if (c == null) {
+            r = Resources.getSystem();
+        } else {
+            r = c.getResources();
+        }
+
+        setRawTextSize(TypedValue.applyDimension(unit, size, r.getDisplayMetrics()),
+                shouldRequestLayout);
+    }
+
+    private void setRawTextSize(float size, boolean shouldRequestLayout) {
+        if (size != paint.getTextSize()) {
+            paint.setTextSize(size);
+
+//            if (shouldRequestLayout && mLayout != null) {
+//                nullLayouts();
+//                requestLayout();
+//                invalidate();
+//            }
+        }
+    }
+
+
+//    /**
+//     *
+//     */
+//    private void setViewSize(ImageView view) {
+//        MarginLayoutParams margin = new MarginLayoutParams(view.getLayoutParams());
+//        int dpTop = dp2px( 10);
+//        int dpRight = dp2px( 10);
+//        int dpLeft=dp2px( 10);
+//
+//        margin.setMargins(dpLeft, dpTop, dpRight, 0);
+//
+//        DisplayMetrics metric = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(metric);
+//
+//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(margin);
+//        layoutParams.width = 500;
+//        layoutParams.height= 400;
+//        view.setLayoutParams(layoutParams);
+//    }
+
+
+    public static int px2sp(Context context, float pxValue) {
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    public static int sp2px(Context context, float spValue) {
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
+    }
+
 
     /**
      * isHorizontal or vertical
@@ -226,14 +353,13 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
 
-
     /**
      * Set the text color
      *
      * @param color A color value in the form 0xAARRGGBB.
      */
     public void setTextColor(@ColorInt int color) {
-        textColor =color;
+        textColor = color;
         paint.setColor(textColor);
     }
 
@@ -386,7 +512,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
             while (!stopScroll) {
 
-                // NoNeed Scroll
+                // NoNeed Scroll，短文不滚动
 //                if (textWidth < getWidth()) {
 //                    draw(1, textY);
 //                    stopScroll = true;

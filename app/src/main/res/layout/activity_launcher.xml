@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:customAttr="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LauncherActivity">
+
+
+    <ImageView
+        android:id="@+id/setting"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginRight="33dp"
+        android:background="@drawable/setting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <anylife.scrolltextview.ScrollTextView
+        android:id="@+id/scrollText"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:background="#99224433"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        customAttr:clickEnable="true"
+        customAttr:isHorizontal="true"
+        customAttr:speed="4"
+        customAttr:text="请点击设置来指定相关属性"
+        customAttr:text_color="@android:color/white"
+        customAttr:text_size="22sp" />
+
+
+</android.support.constraint.ConstraintLayout>

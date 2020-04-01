@@ -1,3 +1,10 @@
+
+# 关于提Issues
+本库一直在持续维护中，但是能投入的时间不多，有issues 的同学说明一下以下内容
+- 1.使用场景：   比如ViewPager+fragment 滑动切换
+- 2.Android系统信息：  手机品牌，Android版本号
+
+
 # How to use
 ```
     <anylife.scrolltextview.ScrollTextView

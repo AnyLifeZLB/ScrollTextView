@@ -7,11 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".LauncherActivity">
 
-
     <ImageView
         android:id="@+id/setting"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:layout_marginTop="33dp"
         android:layout_marginRight="33dp"
         android:background="@drawable/setting"
@@ -33,6 +32,5 @@
         customAttr:text="请点击设置来指定相关属性"
         customAttr:text_color="@android:color/white"
         customAttr:text_size="22sp" />
-
 
 </android.support.constraint.ConstraintLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:customAttr="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SettingActivity">
@@ -12,11 +12,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:background="#33336699"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/close"
-        android:background="#33336699"
         customAttr:clickEnable="false"
         customAttr:isHorizontal="true"
         customAttr:speed="4"
@@ -28,10 +28,10 @@
         android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="22dp"
         android:layout_marginRight="25dp"
-        android:text="@string/confirm"
         android:background="#ff336699"
+        android:text="@string/confirm"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,39 +54,62 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_size_tag"
-                android:textSize="18sp"
+                android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <SeekBar
                 android:id="@+id/text_size_seek_bar"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:max="250"
                 android:min="16"
-                android:max="100"
                 app:layout_constraintBottom_toBottomOf="@id/text_size_tag"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/text_size_tag"
                 app:layout_constraintTop_toTopOf="@id/text_size_tag" />
 
+
+            <TextView
+                android:id="@+id/text_speed_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_speed_tag"
+                android:layout_marginTop="22dp"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_size_tag" />
+
+            <SeekBar
+                android:id="@+id/text_speed_seek_bar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:max="14"
+                android:min="4"
+                app:layout_constraintBottom_toBottomOf="@id/text_speed_tag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_speed_tag"
+                app:layout_constraintTop_toTopOf="@id/text_speed_tag" />
+
+
             <TextView
                 android:id="@+id/text_color_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="22dp"
                 android:text="@string/text_color_tag"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_size_tag" />
+                app:layout_constraintTop_toBottomOf="@id/text_speed_tag" />
 
             <TextView
                 android:id="@+id/text_color"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/select"
-                android:gravity="center"
-                android:background="@color/colorAccent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/select"
                 app:layout_constraintBottom_toBottomOf="@id/text_color_tag"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/text_color_tag"
@@ -97,7 +120,7 @@
                 android:id="@+id/bg_color_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="22dp"
                 android:text="@string/text_bg_color_tag"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,30 +130,30 @@
             <TextView
                 android:id="@+id/bg_color"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/select"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:background="@color/colorAccent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@string/select"
                 app:layout_constraintBottom_toBottomOf="@id/bg_color_tag"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/bg_color_tag"
                 app:layout_constraintTop_toTopOf="@id/bg_color_tag" />
 
 
-<!--            <com.larswerkman.holocolorpicker.ColorPicker-->
-<!--                android:id="@+id/picker"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"/>-->
+            <!--            <com.larswerkman.holocolorpicker.ColorPicker-->
+            <!--                android:id="@+id/picker"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"/>-->
 
 
             <EditText
                 android:id="@+id/text_input"
-                app:layout_constraintTop_toBottomOf="@id/bg_color_tag"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:hint="@string/input_text_hint"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:hint="@string/input_text_hint"
+                app:layout_constraintTop_toBottomOf="@id/bg_color_tag" />
 
 
         </android.support.constraint.ConstraintLayout>

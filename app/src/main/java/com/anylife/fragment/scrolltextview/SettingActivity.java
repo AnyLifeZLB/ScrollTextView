@@ -1,6 +1,7 @@
 package com.anylife.fragment.scrolltextview;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,8 +27,7 @@ import static com.anylife.fragment.scrolltextview.LauncherActivity.TEXT_INPUT_KE
 
 
 /**
- * 设置页面
- *
+ * 设置页面，
  */
 public class SettingActivity extends AppCompatActivity {
     private Button closeBtn;
@@ -42,6 +42,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideBottomUIMenu();
         setContentView(R.layout.activity_setting);
         scrollTextView = findViewById(R.id.scrollText);
         closeBtn = findViewById(R.id.close);
@@ -52,7 +53,7 @@ public class SettingActivity extends AppCompatActivity {
         scrollTextView.setTextColor(getIntent().getIntExtra(TEXT_COLOR_KEY, 0));
         scrollTextView.setScrollTextBackgroundColor(getIntent().getIntExtra(TEXT_BG_COLOR_KEY, 0));
 
-        if(!TextUtils.isEmpty(getIntent().getStringExtra(TEXT_INPUT_KEY))){
+        if (!TextUtils.isEmpty(getIntent().getStringExtra(TEXT_INPUT_KEY))) {
             scrollTextView.setText(getIntent().getStringExtra(TEXT_INPUT_KEY));
         }
 
@@ -94,6 +95,7 @@ public class SettingActivity extends AppCompatActivity {
                 scrollTextView.setTextSize(progress);
                 scrollSize = progress;
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -159,5 +161,24 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    /**
+     * 隐藏虚拟按键，并且全屏
+     */
+    protected void hideBottomUIMenu() {
+        //隐藏虚拟按键，并且全屏
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            //for new api versions.
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
 
 }

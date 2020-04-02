@@ -45,8 +45,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private SurfaceHolder surfaceHolder;   //providing access and control over this SurfaceView's underlying surface.
 
     private Paint paint = null;
-    private boolean stopScroll = false;          // stop scroll
-    private boolean pauseScroll = false;         // pause scroll
+    private boolean stopScroll = false;     // stop scroll
+    private boolean pauseScroll = false;    // pause scroll
 
     //Default value
     private boolean clickEnable = false;    // click to stop/start
@@ -122,7 +122,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         // TODO Auto-generated method stub
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int mHeight = getFontHeight(textSize);  //实际的视图高
+        int mHeight = getFontHeight(textSize);      //实际的视图高
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
 
@@ -136,7 +136,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             setMeasuredDimension(viewWidth, mHeight);
             viewHeight = mHeight;
         }
-
     }
 
 
@@ -181,10 +180,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         Log.d(TAG, "ScrollTextTextView is destroyed");
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-    }
 
     /**
      * text height
@@ -199,12 +194,21 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         return (int) Math.ceil(fm.descent - fm.ascent);
     }
 
-
-    public int getBackGroudColor(){
+    /**
+     * get Background color
+     *
+     * @return textBackColor
+     */
+    public int getBackgroundColor(){
         return textBackColor;
     }
 
 
+    /**
+     * set background color
+     *
+     * @param color textBackColor
+     */
     public void setScrollTextBackgroundColor(int color){
         this.setBackgroundColor(color);
         this.textBackColor=color;
@@ -242,7 +246,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     /**
      * get text color
      *
-     * @return
+     * @return textColor
      */
     public int getTextColor() {
         return textColor;
@@ -291,7 +295,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             isSetNewText = true;
         }
     }
-
 
     /**
      * dp to px
@@ -478,14 +481,14 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     /**
-     * measure tex
+     * measure text
      */
     private void measureVarious() {
         textWidth = paint.measureText(text);
         viewWidth_plus_textLength = viewWidth + textWidth;
         textX = viewWidth - viewWidth / 5;
 
-        //baseline measure
+        //baseline measure !
         FontMetrics fontMetrics = paint.getFontMetrics();
         float distance = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
         textY = viewHeight / 2 + distance;
@@ -494,6 +497,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
     /**
      * Scroll thread
+     *
      */
     class ScrollTextThread implements Runnable {
         @Override

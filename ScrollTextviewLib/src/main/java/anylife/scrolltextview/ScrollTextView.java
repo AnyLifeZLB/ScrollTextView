@@ -33,8 +33,9 @@ import java.util.concurrent.TimeUnit;
  * NEWEST LOG :
  * 1.setText() immediately take effect (v1.3.6)
  * 2.support scroll forever            (v1.3.7)
- * 3.support scroll text size
- * <p>
+ * 3.support scroll text size         （v1.5.0)
+ *
+ *
  * Basic knowledge：https://www.jianshu.com/p/918fec73a24d
  *
  * @author anylife.zlb@gmail.com  2013/09/02

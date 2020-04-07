@@ -13,6 +13,7 @@ import anylife.scrolltextview.ScrollTextView;
 /**
  * Demo
  */
+@Deprecated
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     ScrollTextView scrollText;

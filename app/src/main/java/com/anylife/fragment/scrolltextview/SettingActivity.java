@@ -27,7 +27,7 @@ import static com.anylife.fragment.scrolltextview.LauncherActivity.TEXT_INPUT_KE
 
 
 /**
- * 设置页面，
+ * 设置页面
  */
 public class SettingActivity extends AppCompatActivity {
     private Button closeBtn;

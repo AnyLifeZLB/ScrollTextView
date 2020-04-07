@@ -12,6 +12,7 @@ import anylife.scrolltextview.ScrollTextView;
 
 /**
  * 跑马灯设置
+ *
  */
 public class LauncherActivity extends AppCompatActivity {
     public static final String TEXT_INPUT_KEY = "textInput";

@@ -2,9 +2,10 @@ package com.anylife.fragment.scrolltextview;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,8 @@ import static com.anylife.fragment.scrolltextview.LauncherActivity.TEXT_INPUT_KE
  * 设置页面
  */
 public class SettingActivity extends AppCompatActivity {
+    private static final String TAG = SettingActivity.class.getSimpleName();
+
     private Button closeBtn;
     private ScrollTextView scrollTextView;
 
@@ -89,6 +92,8 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         SeekBar textSizeSeekBar = findViewById(R.id.text_size_seek_bar);
+        textSizeSeekBar.setProgress((int) scrollTextView.getTextSize());
+
         textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -106,11 +111,13 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         SeekBar textSpeedSeekBar = findViewById(R.id.text_speed_seek_bar);
+        textSpeedSeekBar.setProgress(scrollTextView.getSpeed());
         textSpeedSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 scrollTextView.setSpeed(progress);
                 scrollSpeed = progress;
+                Log.d(TAG, "onProgressChanged: speed " + progress);
             }
 
             @Override

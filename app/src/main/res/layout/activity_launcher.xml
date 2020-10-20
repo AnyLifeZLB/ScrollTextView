@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:customAttr="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,8 +20,7 @@
     <anylife.scrolltextview.ScrollTextView
         android:id="@+id/scrollText"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
         android:background="#99224433"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,8 +30,8 @@
         customAttr:clickEnable="true"
         customAttr:isHorizontal="true"
         customAttr:speed="4"
-        customAttr:text="请点击设置来指定相关属性"
+        customAttr:text="请点击设置来指定相关属性vjerpofjrefwjepfjwjwopcj"
         customAttr:text_color="@android:color/white"
         customAttr:text_size="22sp" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

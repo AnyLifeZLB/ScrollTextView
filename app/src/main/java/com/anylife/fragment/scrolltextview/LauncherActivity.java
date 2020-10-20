@@ -2,9 +2,9 @@ package com.anylife.fragment.scrolltextview;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -12,9 +12,9 @@ import anylife.scrolltextview.ScrollTextView;
 
 /**
  * 跑马灯设置
- *
  */
 public class LauncherActivity extends AppCompatActivity {
+    public static final String TAG = LauncherActivity.class.getSimpleName();
     public static final String TEXT_INPUT_KEY = "textInput";
     public static final String SCROLL_SIZE_KEY = "scrollSize";
     public static final String SCROLL_SPEED_KEY = "scrollSpeed";
@@ -31,12 +31,10 @@ public class LauncherActivity extends AppCompatActivity {
         hideBottomUIMenu();
         setContentView(R.layout.activity_launcher);
         scrollTextView = findViewById(R.id.scrollText);
-
         findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LauncherActivity.this, SettingActivity.class);
-
                 intent.putExtra(TEXT_INPUT_KEY, scrollTextView.getText());
                 intent.putExtra(SCROLL_SIZE_KEY, scrollTextView.getTextSize());
                 intent.putExtra(SCROLL_SPEED_KEY, scrollTextView.getSpeed());
@@ -47,7 +45,6 @@ public class LauncherActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     /**
@@ -119,8 +116,6 @@ public class LauncherActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
 
 }

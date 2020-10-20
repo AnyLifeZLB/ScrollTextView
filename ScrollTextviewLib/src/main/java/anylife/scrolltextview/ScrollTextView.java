@@ -9,7 +9,7 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
 import android.os.Build;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -31,8 +31,8 @@ import java.util.concurrent.TimeUnit;
  * 1.setText() immediately take effect (v1.3.6)
  * 2.support scroll forever            (v1.3.7)
  * 3.support scroll text size         （v1.5.0)
- *
- *
+ * <p>
+ * <p>
  * Basic knowledge：https://www.jianshu.com/p/918fec73a24d
  *
  * @author anylife.zlb@gmail.com  2013/09/02
@@ -49,13 +49,13 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     //Default value
     private boolean clickEnable = false;    // click to stop/start
     public boolean isHorizontal = true;     // horizontal｜V
-    private int speed = 4;                  // scroll-speed
+    private int speed = 3;                  // scroll-speed
     private String text = "";               // scroll text
     private float letterSpacing = 0.2f;
     private float textPadding = dip2px(getContext(), 5);
     private float textSize = 20f;           // default text size
     private int textColor;
-    private int textBackColor=0x00000000;
+    private int textBackColor = 0x00000000;
 
     private int needScrollTimes = Integer.MAX_VALUE;      //scroll times
 
@@ -203,7 +203,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      *
      * @return textBackColor
      */
-    public int getBackgroundColor(){
+    public int getBackgroundColor() {
         return textBackColor;
     }
 
@@ -213,9 +213,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      *
      * @param color textBackColor
      */
-    public void setScrollTextBackgroundColor(int color){
+    public void setScrollTextBackgroundColor(int color) {
         this.setBackgroundColor(color);
-        this.textBackColor=color;
+        this.textBackColor = color;
     }
 
 
@@ -240,10 +240,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     /**
      * get text size
      *
-     * @return  px
+     * @return px
      */
     public float getTextSize() {
-        return px2sp(this.getContext(),textSize);
+        return px2sp(this.getContext(), textSize);
     }
 
 
@@ -290,13 +290,13 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      * @param textSizeTem scroll times
      */
     public void setTextSize(float textSizeTem) {
-        if (textSize < 20) {
+        if (textSize < 10) {
             throw new IllegalArgumentException("textSize must  > 20");
         } else if (textSize > 900) {
             throw new IllegalArgumentException("textSize must  < 900");
         } else {
 
-            this.textSize=sp2px(getContext(), textSizeTem);
+            this.textSize = sp2px(getContext(), textSizeTem);
             //重新设置Size
             paint.setTextSize(textSize);
             //试图区域也要改变
@@ -308,7 +308,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             lp.width = viewWidth;
             lp.height = dip2px(this.getContext(), mHeight);
             this.setLayoutParams(lp);
-
             isSetNewText = true;
         }
     }
@@ -338,7 +337,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
 
-    public  int px2sp(Context context, float pxValue) {
+    public int px2sp(Context context, float pxValue) {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
@@ -380,11 +379,11 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     /**
      * set scroll speed
      *
-     * @param speed SCROLL SPEED [4,14] ///// 0?
+     * @param speed SCROLL SPEED [1,10] ///// 0?
      */
     public void setSpeed(int speed) {
-        if (speed > 14 || speed < 4) {
-            throw new IllegalArgumentException("Speed was invalid integer, it must between 4 and 14");
+        if (speed > 10 || speed < 1) {
+            throw new IllegalArgumentException("Speed was invalid integer, it must between 1 and 10");
         } else {
             this.speed = speed;
         }
@@ -514,7 +513,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
     /**
      * Scroll thread
-     *
      */
     class ScrollTextThread implements Runnable {
         @Override

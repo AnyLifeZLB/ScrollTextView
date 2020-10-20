@@ -27,6 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:letterSpacing="0.6"
+        app:textPadding="10dp"
         customAttr:clickEnable="true"
         customAttr:isHorizontal="true"
         customAttr:speed="4"

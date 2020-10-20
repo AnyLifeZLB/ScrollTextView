@@ -1,8 +1,6 @@
 package anylife.scrolltextview;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,13 +12,11 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +52,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private int speed = 4;                  // scroll-speed
     private String text = "";               // scroll text
     private float letterSpacing = 0.2f;
+    private float textPadding = dip2px(getContext(), 5);
     private float textSize = 20f;           // default text size
     private int textColor;
     private int textBackColor=0x00000000;
@@ -103,8 +100,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         textSize = arr.getDimension(R.styleable.ScrollTextView_text_size, textSize);
         needScrollTimes = arr.getInteger(R.styleable.ScrollTextView_times, Integer.MAX_VALUE);
         letterSpacing = arr.getFloat(R.styleable.ScrollTextView_letterSpacing, letterSpacing);
+        textPadding = arr.getDimension(R.styleable.ScrollTextView_textPadding, textPadding);
         isScrollForever = arr.getBoolean(R.styleable.ScrollTextView_isScrollForever, true);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             paint.setLetterSpacing(letterSpacing);
         }
@@ -198,7 +195,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         Paint paint = new Paint();
         paint.setTextSize(fontSize);
         FontMetrics fm = paint.getFontMetrics();
-        return (int) Math.ceil(fm.descent - fm.ascent);
+        return (int) (Math.ceil(fm.descent - fm.ascent) + textPadding * 2);
     }
 
     /**

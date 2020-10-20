@@ -537,7 +537,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                     --needScrollTimes;
                 }
 
-                if (needScrollTimes <= 0 && isScrollForever) {
+                if (needScrollTimes <= 0 && !isScrollForever) {
                     stopScroll = true;
                 }
 

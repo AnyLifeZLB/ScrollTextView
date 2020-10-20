@@ -399,22 +399,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         isScrollForever = scrollForever;
     }
 
-    /**
-     * touch to stop / start
-     */
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (!clickEnable) {
-            return true;
-        }
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                pauseScroll = !pauseScroll;
-                break;
-        }
-        return true;
-    }
-
 
     /**
      * scroll text vertical

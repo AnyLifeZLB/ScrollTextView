@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -54,6 +55,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     public boolean isHorizontal = true;     // horizontal｜V
     private int speed = 4;                  // scroll-speed
     private String text = "";               // scroll text
+    private float letterSpacing = 0.2f;
     private float textSize = 20f;           // default text size
     private int textColor;
     private int textBackColor=0x00000000;
@@ -100,8 +102,12 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         textColor = arr.getColor(R.styleable.ScrollTextView_text_color, Color.BLACK);
         textSize = arr.getDimension(R.styleable.ScrollTextView_text_size, textSize);
         needScrollTimes = arr.getInteger(R.styleable.ScrollTextView_times, Integer.MAX_VALUE);
+        letterSpacing = arr.getFloat(R.styleable.ScrollTextView_letterSpacing, letterSpacing);
         isScrollForever = arr.getBoolean(R.styleable.ScrollTextView_isScrollForever, true);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            paint.setLetterSpacing(letterSpacing);
+        }
         paint.setColor(textColor);
         paint.setTextSize(textSize);
 
@@ -251,6 +257,19 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      */
     public int getTextColor() {
         return textColor;
+    }
+
+    public float getLetterSpacing() {
+        return letterSpacing;
+    }
+
+    public void setLetterSpacing(float letterSpacing) {
+        this.letterSpacing = letterSpacing;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            paint.setLetterSpacing(letterSpacing);
+            measureVarious();
+            isSetNewText = true;
+        }
     }
 
     /**

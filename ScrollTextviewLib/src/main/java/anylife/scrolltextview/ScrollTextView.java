@@ -9,19 +9,20 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
 import android.os.Build;
-import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorInt;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -57,8 +58,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private int textColor;
     private int textBackColor = 0x00000000;
 
-    private int needScrollTimes = Integer.MAX_VALUE;      //scroll times
-
+    private int needScrollTimes = Integer.MAX_VALUE;        //scroll times
+    private int scrollTimePeriod = Integer.MIN_VALUE;             //scroll period;unit:second
     private int viewWidth = 0;
     private int viewHeight = 0;
     private float textWidth = 0f;
@@ -67,6 +68,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private float viewWidth_plus_textLength = 0.0f;
 
     private ScheduledExecutorService scheduledExecutorService;
+    private ScheduledExecutorService scrollPeriodExecutorService;
+    private ScheduledFuture scrollPeriodScheduledFuture;
 
     boolean isSetNewText = false;
     boolean isScrollForever = true;
@@ -170,6 +173,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(new ScrollTextThread(), 100, 100, TimeUnit.MILLISECONDS);
         Log.d(TAG, "ScrollTextTextView is created");
+        scheduleScrollPeriod();
     }
 
     /**
@@ -181,6 +185,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     public void surfaceDestroyed(SurfaceHolder arg0) {
         stopScroll = true;
         scheduledExecutorService.shutdownNow();
+        if (scrollPeriodExecutorService != null) {
+            scrollPeriodExecutorService.shutdownNow();
+        }
         Log.d(TAG, "ScrollTextTextView is destroyed");
     }
 
@@ -283,6 +290,29 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         }
     }
 
+    public int getScrollTimePeriod() {
+        return scrollTimePeriod;
+    }
+
+    public void setScrollTimePeriod(int scrollTimePeriod) {
+        this.scrollTimePeriod = scrollTimePeriod;
+        scheduleScrollPeriod();
+    }
+
+    private void scheduleScrollPeriod() {
+        if (scrollPeriodScheduledFuture != null) {
+            scrollPeriodScheduledFuture.cancel(true);
+        }
+        if (scrollPeriodExecutorService == null) {
+            scrollPeriodExecutorService = Executors.newSingleThreadScheduledExecutor();
+        }
+        if (scrollTimePeriod > 0) {
+            stopScroll = false;
+            scrollPeriodScheduledFuture = scrollPeriodExecutorService.schedule(() -> {
+                stopScroll = true;
+            }, scrollTimePeriod, TimeUnit.SECONDS);
+        }
+    }
 
     /**
      * set scroll text size SP
@@ -501,18 +531,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     class ScrollTextThread implements Runnable {
         @Override
         public void run() {
-
             measureVarious();
-
             while (!stopScroll) {
-
-                // NoNeed Scroll，短文不滚动
-//                if (textWidth < getWidth()) {
-//                    draw(1, textY);
-//                    stopScroll = true;
-//                    break;
-//                }
-
                 if (isHorizontal) {
                     if (pauseScroll) {
                         try {
@@ -534,7 +554,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                     isSetNewText = false;
                     --needScrollTimes;
                 }
-
                 if (needScrollTimes <= 0 && !isScrollForever) {
                     stopScroll = true;
                 }

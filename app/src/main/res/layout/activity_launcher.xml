@@ -8,7 +8,7 @@
     tools:context=".LauncherActivity">
 
     <ImageView
-        android:id="@+id/setting"
+        android:id="@+id/btnSetting"
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:layout_marginTop="33dp"
@@ -17,8 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <anylife.scrolltextview.ScrollTextView
-        android:id="@+id/scrollText"
+    <com.goodjia.ScrollTextSurfaceView
+        android:id="@+id/scrollTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#99224433"
@@ -30,7 +30,7 @@
         customAttr:clickEnable="true"
         customAttr:isHorizontal="true"
         customAttr:speed="4"
-        customAttr:text="请点击设置来指定相关属性vjerpofjrefwjepfjwjwopcj"
+        app:text="@string/text"
         customAttr:text_color="@android:color/white"
         customAttr:text_size="22sp" />
 

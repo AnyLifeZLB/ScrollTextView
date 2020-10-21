@@ -8,5 +8,6 @@
     <string name="text_color_tag">文字颜色:</string>
     <string name="text_bg_color_tag">背景颜色:</string>
     <string name="text_content_tag">文字内容:</string>
+    <string name="text">请点击设置来指定相关属性</string>
 
 </resources>

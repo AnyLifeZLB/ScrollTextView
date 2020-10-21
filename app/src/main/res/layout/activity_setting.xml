@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".SettingActivity">
 
-    <anylife.scrolltextview.ScrollTextView
-        android:id="@+id/scrollText"
+    <com.goodjia.ScrollTextSurfaceView
+        android:id="@+id/scrollTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -16,16 +16,16 @@
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/close"
+        app:layout_constraintTop_toBottomOf="@+id/btnClose"
         customAttr:clickEnable="false"
         customAttr:isHorizontal="true"
         customAttr:speed="4"
-        customAttr:text="请点击设置来指定相关属性"
+        customAttr:text="@string/text"
         customAttr:text_color="@android:color/white"
         customAttr:text_size="22sp" />
 
     <Button
-        android:id="@+id/close"
+        android:id="@+id/btnClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
@@ -42,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/close">
+        app:layout_constraintTop_toBottomOf="@id/btnClose">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -74,8 +74,8 @@
                 android:id="@+id/text_speed_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_speed_tag"
                 android:layout_marginTop="22dp"
+                android:text="@string/text_speed_tag"
                 android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_size_tag" />
@@ -148,7 +148,7 @@
 
 
             <EditText
-                android:id="@+id/text_input"
+                android:id="@+id/et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"

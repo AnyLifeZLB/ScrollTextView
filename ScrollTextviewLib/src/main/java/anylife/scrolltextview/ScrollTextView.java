@@ -18,8 +18,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.ColorInt;
 
+import com.goodjia.ScrollListener;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -58,8 +62,9 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private int textColor;
     private int textBackColor = 0x00000000;
 
-    private int needScrollTimes = Integer.MAX_VALUE;        //scroll times
-    private int scrollTimePeriod = Integer.MIN_VALUE;             //scroll period;unit:second
+    protected int needScrollTimes = Integer.MAX_VALUE;        //scroll times
+    private int scrollCount = 0;
+    protected int scrollTimePeriod = Integer.MIN_VALUE;             //scroll period;unit:second
     private int viewWidth = 0;
     private int viewHeight = 0;
     private float textWidth = 0f;
@@ -69,8 +74,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
     private ScheduledExecutorService scheduledExecutorService;
     private ScheduledExecutorService scrollPeriodExecutorService;
-    private ScheduledFuture scrollPeriodScheduledFuture;
-
+    protected ScheduledFuture scrollPeriodScheduledFuture;
+    private Set<ScrollListener> listeners = new HashSet();
     boolean isSetNewText = false;
     boolean isScrollForever = true;
 
@@ -225,6 +230,17 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         this.textBackColor = color;
     }
 
+    public void addScrollListener(ScrollListener listener) {
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
+    }
+
+    public void removeScrollListener(ScrollListener listener) {
+        synchronized (listeners) {
+            listeners.remove(listener);
+        }
+    }
 
     /**
      * get speed
@@ -285,6 +301,12 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         if (times <= 0) {
             throw new IllegalArgumentException("times was invalid integer, it must between > 0");
         } else {
+            if (scrollPeriodScheduledFuture != null) {
+                scrollPeriodScheduledFuture.cancel(true);
+            }
+            textX = 0;
+            scrollCount = 0;
+            scrollTimePeriod = Integer.MIN_VALUE;
             needScrollTimes = times;
             isScrollForever = false;
         }
@@ -303,13 +325,21 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         if (scrollPeriodScheduledFuture != null) {
             scrollPeriodScheduledFuture.cancel(true);
         }
-        if (scrollPeriodExecutorService == null) {
+        if (scrollPeriodExecutorService == null || scrollPeriodExecutorService.isShutdown()) {
             scrollPeriodExecutorService = Executors.newSingleThreadScheduledExecutor();
         }
         if (scrollTimePeriod > 0) {
+            textX = 0;
+            needScrollTimes = Integer.MAX_VALUE;
+            scrollCount = 0;
             stopScroll = false;
             scrollPeriodScheduledFuture = scrollPeriodExecutorService.schedule(() -> {
                 stopScroll = true;
+                synchronized (listeners) {
+                    for (ScrollListener listener : listeners) {
+                        listener.onFinished();
+                    }
+                }
             }, scrollTimePeriod, TimeUnit.SECONDS);
         }
     }
@@ -388,6 +418,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      * @param newText scroll text
      */
     public void setText(String newText) {
+        scrollCount = 0;
         isSetNewText = true;
         stopScroll = false;
         this.text = newText;
@@ -434,6 +465,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      * scroll text vertical
      */
     private void drawVerticalScroll() {
+        if (text == null) return;
         List<String> strings = new ArrayList<>();
         int start = 0, end = 0;
         while (end < text.length()) {
@@ -497,6 +529,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      * @param Y Y
      */
     private synchronized void draw(float X, float Y) {
+        if (text == null) return;
         Canvas canvas = surfaceHolder.lockCanvas();
         canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
         canvas.drawText(text, X, Y, paint);
@@ -514,9 +547,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      * measure text
      */
     private void measureVarious() {
+        if (text == null) return;
         textWidth = paint.measureText(text);
         viewWidth_plus_textLength = viewWidth + textWidth;
-        textX = viewWidth - viewWidth / 5;
+        textX = 0;
 
         //baseline measure !
         FontMetrics fontMetrics = paint.getFontMetrics();
@@ -542,20 +576,36 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                         }
                         continue;
                     }
-
                     draw(viewWidth - textX, textY);
                     textX += speed;
                     if (textX > viewWidth_plus_textLength) {
                         textX = 0;
                         --needScrollTimes;
+                        scrollCount++;
+                        synchronized (listeners) {
+                            for (ScrollListener listener : listeners) {
+                                listener.onLoopCompletion(scrollCount);
+                            }
+                        }
                     }
                 } else {
                     drawVerticalScroll();
                     isSetNewText = false;
                     --needScrollTimes;
+                    scrollCount++;
+                    synchronized (listeners) {
+                        for (ScrollListener listener : listeners) {
+                            listener.onLoopCompletion(scrollCount);
+                        }
+                    }
                 }
                 if (needScrollTimes <= 0 && !isScrollForever) {
                     stopScroll = true;
+                    synchronized (listeners) {
+                        for (ScrollListener listener : listeners) {
+                            listener.onFinished();
+                        }
+                    }
                 }
 
             }

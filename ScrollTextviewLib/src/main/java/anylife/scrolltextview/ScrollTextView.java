@@ -177,8 +177,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         stopScroll = false;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(new ScrollTextThread(), 100, 100, TimeUnit.MILLISECONDS);
-        Log.d(TAG, "ScrollTextTextView is created");
         scheduleScrollPeriod();
+        Log.d(TAG, "ScrollTextTextView is created");
     }
 
     /**
@@ -566,7 +566,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         @Override
         public void run() {
             measureVarious();
-            while (!stopScroll) {
+            while (!stopScroll && (text != null || !text.isEmpty())) {
                 if (isHorizontal) {
                     if (pauseScroll) {
                         try {

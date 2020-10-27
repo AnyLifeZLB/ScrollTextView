@@ -251,10 +251,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     /**
      * get text size
      *
-     * @return px
+     * @return sp
      */
     public float getTextSize() {
-        return textSize;
+        return px2sp(getContext(), textSize);
     }
 
 
@@ -333,18 +333,17 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     /**
-     * set scroll text size
+     * set scroll text size sp
      *
-     * @param textSize
+     * @param textSizeSp
      */
-    public void setTextSize(float textSize) {
-        if (this.textSize < 10) {
+    public void setTextSize(float textSizeSp) {
+        if (textSizeSp < 10) {
             throw new IllegalArgumentException("textSize must  > 20");
-        } else if (this.textSize > 900) {
+        } else if (textSizeSp > 900) {
             throw new IllegalArgumentException("textSize must  < 900");
         } else {
-
-            this.textSize = textSize;
+            textSize = sp2px(getContext(), textSizeSp);
             //重新设置Size
             paint.setTextSize(textSize);
 
@@ -352,7 +351,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             viewHeight = getFontHeight(textSize);
             android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
             lp.width = viewWidth;
-            lp.height = dip2px(this.getContext(), viewHeight);
+            lp.height = viewHeight;
             this.setLayoutParams(lp);
 
             //试图区域也要改变
@@ -386,7 +385,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         return (int) (spValue * fontScale + 0.5f);
     }
 
-
     public int px2sp(Context context, float pxValue) {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
@@ -415,7 +413,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         measureVarious();
     }
 
-
     /**
      * Set the text color
      *
@@ -425,7 +422,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         textColor = color;
         paint.setColor(textColor);
     }
-
 
     /**
      * set scroll speed

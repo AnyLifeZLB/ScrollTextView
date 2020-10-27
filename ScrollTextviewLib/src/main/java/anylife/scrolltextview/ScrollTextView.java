@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.ColorInt;
 
@@ -58,7 +57,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private String text = "";               // scroll text
     private float letterSpacing = 0.2f;
     private float textPadding = dip2px(getContext(), 5);
-    private float textSize = 20f;           // default text size
+    private float textSize = sp2px(getContext(), 20f);           // default text size
     private int textColor;
     private int textBackColor = 0x00000000;
 
@@ -133,21 +132,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // TODO Auto-generated method stub
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int mHeight = getFontHeight(textSize);      //实际的视图高
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
-        viewHeight = MeasureSpec.getSize(heightMeasureSpec);
-
-        // when layout width or height is wrap_content ,should init ScrollTextView Width/Height
-        if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT && getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            setMeasuredDimension(viewWidth, mHeight);
-            viewHeight = mHeight;
-        } else if (getLayoutParams().width == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            setMeasuredDimension(viewWidth, viewHeight);
-        } else if (getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            setMeasuredDimension(viewWidth, mHeight);
-            viewHeight = mHeight;
-        }
+        viewHeight = getFontHeight(textSize);      //实际的视图高
+        setMeasuredDimension(viewWidth, viewHeight);
+        Log.d(TAG, "onMeasure " + viewHeight);
     }
 
 
@@ -266,7 +254,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      * @return px
      */
     public float getTextSize() {
-        return px2sp(this.getContext(), textSize);
+        return textSize;
     }
 
 
@@ -345,29 +333,31 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     /**
-     * set scroll text size SP
+     * set scroll text size
      *
-     * @param textSizeTem scroll times
+     * @param textSize
      */
-    public void setTextSize(float textSizeTem) {
-        if (textSize < 10) {
+    public void setTextSize(float textSize) {
+        if (this.textSize < 10) {
             throw new IllegalArgumentException("textSize must  > 20");
-        } else if (textSize > 900) {
+        } else if (this.textSize > 900) {
             throw new IllegalArgumentException("textSize must  < 900");
         } else {
 
-            this.textSize = sp2px(getContext(), textSizeTem);
+            this.textSize = textSize;
             //重新设置Size
             paint.setTextSize(textSize);
+
+            //实际的视图高,thanks to WG
+            viewHeight = getFontHeight(textSize);
+            android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
+            lp.width = viewWidth;
+            lp.height = dip2px(this.getContext(), viewHeight);
+            this.setLayoutParams(lp);
+
             //试图区域也要改变
             measureVarious();
 
-            //实际的视图高,thanks to WG
-            int mHeight = getFontHeight(textSizeTem);
-            android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
-            lp.width = viewWidth;
-            lp.height = dip2px(this.getContext(), mHeight);
-            this.setLayoutParams(lp);
             isSetNewText = true;
         }
     }

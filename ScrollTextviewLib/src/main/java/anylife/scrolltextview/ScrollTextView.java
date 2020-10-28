@@ -16,6 +16,8 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntRange;
 
 import com.goodjia.ScrollListener;
 
@@ -42,6 +44,10 @@ import java.util.concurrent.TimeUnit;
  * @author anylife.zlb@gmail.com  2013/09/02
  */
 public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
+    private static final int MIN_SPEED = 1;
+    private static final int MAX_SPEED = 30;
+    private static final float MIN_TEXT_SIZE = 0.1f;
+    private static final float MAX_TEXT_SIZE = Float.MAX_VALUE;
     private final String TAG = "ScrollTextView";
     // surface Handle onto a raw buffer that is being managed by the screen compositor.
     private SurfaceHolder surfaceHolder;   //providing access and control over this SurfaceView's underlying surface.
@@ -53,10 +59,12 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     //Default value
     private boolean clickEnable = false;    // click to stop/start
     public boolean isHorizontal = true;     // horizontal｜V
+    @IntRange(from = MIN_SPEED, to = MAX_SPEED)
     private int speed = 3;                  // scroll-speed
     private String text = "";               // scroll text
     private float letterSpacing = 0.2f;
     private float textPadding = dip2px(getContext(), 5);
+    @FloatRange(from = MIN_TEXT_SIZE, to = MAX_TEXT_SIZE)
     private float textSize = sp2px(getContext(), 20f);           // default text size
     private int textColor;
     private int textBackColor = 0x00000000;
@@ -337,28 +345,22 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      *
      * @param textSizeSp
      */
-    public void setTextSize(float textSizeSp) {
-        if (textSizeSp < 10) {
-            throw new IllegalArgumentException("textSize must  > 20");
-        } else if (textSizeSp > 900) {
-            throw new IllegalArgumentException("textSize must  < 900");
-        } else {
-            textSize = sp2px(getContext(), textSizeSp);
-            //重新设置Size
-            paint.setTextSize(textSize);
+    public void setTextSize(@FloatRange(from = MIN_TEXT_SIZE, to = MAX_TEXT_SIZE) float textSizeSp) {
+        textSize = sp2px(getContext(), textSizeSp);
+        //重新设置Size
+        paint.setTextSize(textSize);
 
-            //实际的视图高,thanks to WG
-            viewHeight = getFontHeight(textSize);
-            android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
-            lp.width = viewWidth;
-            lp.height = viewHeight;
-            this.setLayoutParams(lp);
+        //实际的视图高,thanks to WG
+        viewHeight = getFontHeight(textSize);
+        android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
+        lp.width = viewWidth;
+        lp.height = viewHeight;
+        this.setLayoutParams(lp);
 
-            //试图区域也要改变
-            measureVarious();
+        //试图区域也要改变
+        measureVarious();
 
-            isSetNewText = true;
-        }
+        isSetNewText = true;
     }
 
     /**
@@ -426,14 +428,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     /**
      * set scroll speed
      *
-     * @param speed SCROLL SPEED [1,10] ///// 0?
+     * @param speed SCROLL SPEED
      */
-    public void setSpeed(int speed) {
-        if (speed > 10 || speed < 1) {
-            throw new IllegalArgumentException("Speed was invalid integer, it must between 1 and 10");
-        } else {
-            this.speed = speed;
-        }
+    public void setSpeed(@IntRange(from = MIN_SPEED, to = MAX_SPEED) int speed) {
+        this.speed = speed;
     }
 
 

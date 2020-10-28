@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.novoda.bintray-release'
-def verCode = 11
-def verName = "2.0.4"
+def verCode = 12
+def verName = "2.0.5"
 android {
     compileSdkVersion 30
 

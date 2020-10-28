@@ -48,7 +48,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
     private static final int MAX_SPEED = 30;
     private static final float MIN_TEXT_SIZE = 0.1f;
     private static final float MAX_TEXT_SIZE = Float.MAX_VALUE;
-    private final String TAG = "ScrollTextView";
+    private final String TAG = ScrollTextView.class.getSimpleName();
     // surface Handle onto a raw buffer that is being managed by the screen compositor.
     private SurfaceHolder surfaceHolder;   //providing access and control over this SurfaceView's underlying surface.
 
@@ -143,7 +143,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         viewHeight = getFontHeight(textSize);      //实际的视图高
         setMeasuredDimension(viewWidth, viewHeight);
-        Log.d(TAG, "onMeasure " + viewHeight);
     }
 
 
@@ -156,9 +155,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      * @param arg3 arg1
      */
     @Override
-    public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
-        Log.d(TAG, "arg0:" + arg0.toString() + "  arg1:" + arg1 + "  arg2:" + arg2 + "  arg3:" + arg3);
-    }
+    public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) { }
 
     /**
      * surfaceCreated,init a new scroll thread.
@@ -174,7 +171,6 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(new ScrollTextThread(), 100, 100, TimeUnit.MILLISECONDS);
         scheduleScrollPeriod();
-        Log.d(TAG, "ScrollTextTextView is created");
     }
 
     /**
@@ -189,9 +185,16 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         if (scrollPeriodExecutorService != null) {
             scrollPeriodExecutorService.shutdownNow();
         }
-        Log.d(TAG, "ScrollTextTextView is destroyed");
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        scheduledExecutorService.shutdownNow();
+        if (scrollPeriodExecutorService != null) {
+            scrollPeriodExecutorService.shutdownNow();
+        }
+        super.onDetachedFromWindow();
+    }
 
     /**
      * text height

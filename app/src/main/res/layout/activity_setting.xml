@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:customAttr="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,12 +16,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnClose"
-        customAttr:clickEnable="false"
-        customAttr:isHorizontal="true"
-        customAttr:speed="4"
-        customAttr:text="@string/text"
-        customAttr:text_color="@android:color/white"
-        customAttr:text_size="22sp" />
+        app:speed="4"
+        app:text="@string/text"
+        app:text_color="@android:color/white"
+        app:text_size="22sp" />
 
     <Button
         android:id="@+id/btnClose"

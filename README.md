@@ -1,73 +1,69 @@
+[![Download](https://api.bintray.com/packages/jialian/goodJia/scrollTextSurfaceView/images/download.svg) ](https://bintray.com/jialian/goodJia/scrollTextSurfaceView/_latestVersion)
+[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
-# 关于提Issues
-本库一直在持续维护中，但是能投入的时间不多，有issues 的同学说明一下以下内容
-- 1.使用场景：   比如ViewPager+fragment 滑动切换
-- 2.Android系统信息：  手机品牌，Android版本号
-
+# Scroll Text View
+The library can scorll text view.
 
 # How to use
-```
-    <anylife.scrolltextview.ScrollTextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/imageView2"
-        android:layout_marginRight="6dp"
-        android:singleLine="true"
-        customAttr:clickEnable="true"
-        customAttr:isHorizontal="true"
-        customAttr:speed="1"
-        customAttr:text="ScrollTextView Auto Scroll.1234567890,"
-        customAttr:text_size="14sp"
-        customAttr:text_color="#ffffffff"
-        customAttr:times="567" />
-```
+**1 . root/build.gradle**
+````gradle
+allprojects {
+    repositories {
+        ...
+        maven { url "https://dl.bintray.com/jialian/goodJia"
+    }
+}
+````
 
-或者在代码中
-
-```
-    scrollText = findViewById(R.id.scrollText);
-    scrollText.setSpeed(4);
-    scrollText.setText("new text");
-    scrollText.setTextColor(0xffad43ae);
-
-```
-
-
-# Gradle 集成使用
-```
- implementation 'anylife.scrolltextview:ScrollTextviewLib:1.4.6'
+**2. app/build.gradle**
+````gradle
+implementation 'com.goodjia:scrollTextSurfaceView:'{_latestVersion}'
+````
+**3. xml**
+```xml
+    <com.goodjia.ScrollTextSurfaceView
+           android:id="@+id/scrollTextView"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:speed="4"
+           app:text="scroll text view"
+           app:letterSpacing="0.2"
+           app:textPadding="6dp"
+           app:text_color="@android:color/white"
+           app:text_size="22sp" />
 ```
 
-# Maven 集成使用
+**4. ScrollTextSurfaceView show/dismiss**
+
+```kotlin
+     scrollTextSurfaceView.show(
+                content = content,
+                speed = speed,
+                textSize = textSize,
+                textColor = textColor,
+                bgColor = bgColor,
+                letterSpacing = letterSpacing,
+                playTime = playTime,
+                repeatTimes = repeatTimes
+            )
+
+     scrollTextSurfaceView.dismiss()
 ```
-<dependency>
-  <groupId>anylife.scrolltextview</groupId>
-  <artifactId>ScrollTextviewLib</artifactId>
-  <version>1.4.6</version>
-  <type>pom</type>
-</dependency>
-```
 
-# About ScrollTextView
-Class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback
+## LICENSE
+````
+Copyright 2020 Jia
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-Android 滚动字幕，如新闻联播下面的，可以使用在广告机，机顶盒，电视App等信息发布系统。
-以前是在信息发布系统上使用过，作为动态布局的一部分，题外话，如果有想做像分众传媒或者
-类似的电梯门口广告的可以参考一下.
+     http://www.apache.org/licenses/LICENSE-2.0
 
-动态布局专利：http://www.google.com/patents/CN103336691A?cl=zh （科学上网）
-
-
-继承SurfaceView 实现，CPU 占用低，无内存抖动，在Nexus5X，Android 7.0 上测试流畅  
-Gif 图看起来卡是为了图像质量和大小的平衡减低帧率。
-
-Any questions,please contact me at:anylife.zlb@gmail.com
-
-
-![image](https://github.com/AnyLifeZLB/ScrollTextView/raw/master/GIF.gif)
-
-
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+````
 

@@ -29,11 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Android auto Scroll Text,like TV News,AD devices
- * <p>
- * NEWEST LOG :
- * 1.setText() immediately take effect (v1.3.6)
- * 2.support scroll forever            (v1.3.7)
- * 3.support scroll text size         （v1.5.0)
+ *
  *
  *
  * Basic knowledge：https://www.jianshu.com/p/918fec73a24d
@@ -382,6 +378,15 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      */
     public void setScrollForever(boolean scrollForever) {
         isScrollForever = scrollForever;
+    }
+
+
+    public boolean isPauseScroll() {
+        return pauseScroll;
+    }
+
+    public void setPauseScroll(boolean pauseScroll) {
+        this.pauseScroll = pauseScroll;
     }
 
     /**

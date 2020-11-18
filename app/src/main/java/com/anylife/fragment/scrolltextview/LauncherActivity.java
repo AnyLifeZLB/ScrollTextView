@@ -92,6 +92,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        scrollTextView.setPauseScroll(false); //防止设置了暂停影响演示
 
         if (requestCode == REQUEST_SETTING_CODE && resultCode == RESULT_OK) {
             int scrollSpeed = data.getIntExtra(SCROLL_SPEED_KEY, 0);

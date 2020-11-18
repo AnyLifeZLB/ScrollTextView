@@ -14,20 +14,17 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.larswerkman.holocolorpicker.ColorPicker;
-
 import anylife.scrolltextview.ScrollTextView;
-
 import static com.anylife.fragment.scrolltextview.LauncherActivity.SCROLL_SIZE_KEY;
 import static com.anylife.fragment.scrolltextview.LauncherActivity.SCROLL_SPEED_KEY;
 import static com.anylife.fragment.scrolltextview.LauncherActivity.TEXT_BG_COLOR_KEY;
 import static com.anylife.fragment.scrolltextview.LauncherActivity.TEXT_COLOR_KEY;
 import static com.anylife.fragment.scrolltextview.LauncherActivity.TEXT_INPUT_KEY;
 
-
 /**
  * 设置页面
+ *
  */
 public class SettingActivity extends AppCompatActivity {
     private Button closeBtn;
@@ -55,6 +52,7 @@ public class SettingActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(getIntent().getStringExtra(TEXT_INPUT_KEY))) {
             scrollTextView.setText(getIntent().getStringExtra(TEXT_INPUT_KEY));
+            editText.setText(getIntent().getStringExtra(TEXT_INPUT_KEY));
         }
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +68,6 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
-
 
         TextView textColorView = findViewById(R.id.text_color);
         textColorView.setOnClickListener(new View.OnClickListener() {

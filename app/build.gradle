@@ -31,8 +31,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
     implementation 'com.larswerkman:HoloColorPicker:1.5'        //颜色选择
-
     implementation project(':ScrollTextviewLib')                //依赖 library ScrollTextViewLib
-//    implementation 'anylife.scrolltextview:ScrollTextviewLib:1.5.0'  //when OK
+
+//    implementation 'anylife.scrolltextview:ScrollTextviewLib:1.5.0'
+
 
 }

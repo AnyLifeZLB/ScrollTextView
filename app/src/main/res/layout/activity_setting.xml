@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:customAttr="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,7 +23,7 @@
         customAttr:speed="4"
         customAttr:text="请点击设置来指定相关属性"
         customAttr:text_color="@android:color/white"
-        customAttr:text_size="22sp" />
+        customAttr:text_size="24sp" />
 
     <Button
         android:id="@+id/close"
@@ -107,9 +108,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/select"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/text_color_tag"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/text_color_tag"
@@ -132,19 +135,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/select"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/bg_color_tag"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/bg_color_tag"
                 app:layout_constraintTop_toTopOf="@id/bg_color_tag" />
-
-
-            <!--            <com.larswerkman.holocolorpicker.ColorPicker-->
-            <!--                android:id="@+id/picker"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"/>-->
 
 
             <EditText
@@ -153,6 +152,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
                 android:hint="@string/input_text_hint"
+                android:textSize="21sp"
+                android:maxLines="1"
+                android:singleLine="true"
                 app:layout_constraintTop_toBottomOf="@id/bg_color_tag" />
 
 

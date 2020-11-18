@@ -29,7 +29,7 @@
         customAttr:clickEnable="true"
         customAttr:isHorizontal="true"
         customAttr:speed="4"
-        customAttr:text="请点击设置来指定相关属性"
+        customAttr:text="请点击「设置图标」设置相关属性"
         customAttr:text_color="@android:color/white"
         customAttr:text_size="22sp" />
 

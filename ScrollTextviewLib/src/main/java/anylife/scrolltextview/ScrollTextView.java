@@ -31,7 +31,6 @@ import java.util.concurrent.TimeUnit;
  * Android auto Scroll Text,like TV News,AD devices
  *
  *
- *
  * Basic knowledge：https://www.jianshu.com/p/918fec73a24d
  *
  * @author anylife.zlb@gmail.com  2013/09/02
@@ -513,7 +512,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
             while (!stopScroll) {
 
-                // NoNeed Scroll，短文不滚动
+                // NoNeed Scroll，短文不滚动，居中 ？暂时不支持吧
 //                if (textWidth < getWidth()) {
 //                    draw(1, textY);
 //                    stopScroll = true;

@@ -129,7 +129,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_color_tag" />
 
-
             <TextView
                 android:id="@+id/bg_color"
                 android:layout_width="0dp"
@@ -145,7 +144,6 @@
                 app:layout_constraintStart_toEndOf="@+id/bg_color_tag"
                 app:layout_constraintTop_toTopOf="@id/bg_color_tag" />
 
-
             <EditText
                 android:id="@+id/text_input"
                 android:layout_width="match_parent"
@@ -156,7 +154,6 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 app:layout_constraintTop_toBottomOf="@id/bg_color_tag" />
-
 
         </android.support.constraint.ConstraintLayout>
 

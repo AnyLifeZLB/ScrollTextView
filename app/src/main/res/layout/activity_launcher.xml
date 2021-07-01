@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:customAttr="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,10 +10,10 @@
 
     <ImageView
         android:id="@+id/setting"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginRight="33dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginRight="22dp"
         android:background="@drawable/setting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +22,7 @@
         android:id="@+id/scrollText"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:background="#99224433"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"

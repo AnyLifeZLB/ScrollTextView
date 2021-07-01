@@ -21,7 +21,8 @@ public class LauncherActivity extends AppCompatActivity {
     public static final String TEXT_COLOR_KEY = "textColor";
     public static final String TEXT_BG_COLOR_KEY = "textBgColor";
 
-    public static final int REQUEST_SETTING_CODE = 0001;
+    public static final int REQUEST_SETTING_CODE = 0x0001;
+    
     private ScrollTextView scrollTextView;
 
 

@@ -1,4 +1,6 @@
 
+## 由于Jcenter 已经停止使用，现在repo 托管更改到 mavenCentral
+
 # 关于提Issues
 本库一直在持续维护中，但是能投入的时间不多，有issues 的同学说明一下以下内容
 - 1.使用场景：   比如ViewPager+fragment 滑动切换
@@ -37,16 +39,16 @@
 
 # Gradle 集成使用
 ```
- implementation 'anylife.scrolltextview:ScrollTextviewLib:1.4.6'
+ implementation 'io.github.anylifezlb:ScrollTextviewLib:2.0.0'
 ```
 
 # Maven 集成使用
 ```
 <dependency>
-  <groupId>anylife.scrolltextview</groupId>
-  <artifactId>ScrollTextviewLib</artifactId>
-  <version>1.4.6</version>
-  <type>pom</type>
+  <groupId>io.github.anylifezlb</groupId>
+  <artifactId>ScrollTextView</artifactId>
+  <version>2.0.0</version>
+  <type>aar</type>
 </dependency>
 ```
 

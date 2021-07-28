@@ -39,7 +39,7 @@
 
 # Gradle 集成使用
 ```
- implementation 'io.github.anylifezlb:ScrollTextviewLib:2.0.0'
+    implementation 'io.github.anylifezlb:ScrollTextView:2.0.0'
 ```
 
 # Maven 集成使用

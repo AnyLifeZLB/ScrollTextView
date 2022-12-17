@@ -2,13 +2,13 @@
 
 Class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback
 
-Android 滚动字幕，如新闻联播下面的，可以使用在广告机，滚动新闻信息，机场地铁等信息发布系统。 
+Android 滚动字幕，如新闻联播下面的，可以使用在广告机，滚动新闻信息，机场地铁等信息发布系统。
 以前是在信息发布系统上使用过，作为动态布局的一部分，题外话，如果有想做像分众传媒或者类似的
 电梯广告的可以参考一下.
 
 动态布局专利：http://www.google.com/patents/CN103336691A?cl=zh （科学上网打开）
 
-继承SurfaceView 实现，CPU 占用低，无内存抖动，以Nexus5X，Android 7.0 上测试流畅度很好， 
+继承SurfaceView 实现，CPU 占用低，无内存抖动，以Nexus5X，Android 7.0 上测试流畅度很好，
 大部分品牌手机测试兼容性良好。（下面gif图看起来卡是为了图像质量和大小的平衡减低帧率）
 
 Any questions,please contact me at: anylife.zlb@gmail.com
@@ -50,7 +50,6 @@ Any questions,please contact me at: anylife.zlb@gmail.com
     scrollText.setSpeed(4);
     scrollText.setText("new text");
     scrollText.setTextColor(0xffad43ae);
-
 ```
 
 # 关于提Issues

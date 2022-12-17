@@ -2,7 +2,7 @@ package com.anylife.fragment.scrolltextview;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -23,11 +24,11 @@ import static com.anylife.fragment.scrolltextview.LauncherActivity.TEXT_COLOR_KE
 import static com.anylife.fragment.scrolltextview.LauncherActivity.TEXT_INPUT_KEY;
 
 /**
- * 设置页面
+ * 设置页面 Settings
  *
  */
 public class SettingActivity extends AppCompatActivity {
-    private Button closeBtn;
+    private ImageView closeBtn;
     private ScrollTextView scrollTextView;
 
     private int textColor, textBgColor;
@@ -35,6 +36,7 @@ public class SettingActivity extends AppCompatActivity {
     private int scrollSpeed = 5;
     private float scrollSize = 20f;
     private EditText editText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +57,15 @@ public class SettingActivity extends AppCompatActivity {
             editText.setText(getIntent().getStringExtra(TEXT_INPUT_KEY));
         }
 
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra(TEXT_INPUT_KEY, editText.getText().toString());
-                intent.putExtra(SCROLL_SIZE_KEY, scrollTextView.getTextSize());
-                intent.putExtra(SCROLL_SPEED_KEY, scrollSpeed);
-                intent.putExtra(TEXT_COLOR_KEY, textColor);
-                intent.putExtra(TEXT_BG_COLOR_KEY, textBgColor);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
+        closeBtn.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra(TEXT_INPUT_KEY, editText.getText().toString());
+            intent.putExtra(SCROLL_SIZE_KEY, scrollTextView.getTextSize());
+            intent.putExtra(SCROLL_SPEED_KEY, scrollSpeed);
+            intent.putExtra(TEXT_COLOR_KEY, textColor);
+            intent.putExtra(TEXT_BG_COLOR_KEY, textBgColor);
+            setResult(RESULT_OK, intent);
+            finish();
         });
 
         TextView textColorView = findViewById(R.id.text_color);

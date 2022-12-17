@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ScrollTextView</string>
+    <string name="app_name">滚动字幕</string>
     <string name="confirm">确 定</string>
     <string name="input_text_hint">请输入你要滚动的文字</string>
     <string name="select">请选择</string>

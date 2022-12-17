@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScrollTextView.iml" filepath="$PROJECT_DIR$/.idea/modules/ScrollTextView.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScrollTextviewLib/ScrollTextView.ScrollTextviewLib.iml" filepath="$PROJECT_DIR$/.idea/modules/ScrollTextviewLib/ScrollTextView.ScrollTextviewLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScrollTextviewLib/ScrollTextView.ScrollTextviewLib.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ScrollTextviewLib/ScrollTextView.ScrollTextviewLib.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScrollTextviewLib/ScrollTextView.ScrollTextviewLib.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScrollTextviewLib/ScrollTextView.ScrollTextviewLib.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScrollTextviewLib/ScrollTextView.ScrollTextviewLib.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ScrollTextviewLib/ScrollTextView.ScrollTextviewLib.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScrollTextView.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScrollTextView.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/code.ScrollTextView.iml" filepath="$PROJECT_DIR$/.idea/modules/code.ScrollTextView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScrollTextView.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScrollTextView.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScrollTextView.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScrollTextView.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScrollTextView.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScrollTextView.app.unitTest.iml" />
     </modules>
   </component>
 </project>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.anylife.fragment.scrolltextview">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -9,14 +8,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SettingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme">
-
+            android:name=".TestActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
-
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme"></activity>
         <activity
             android:name=".LauncherActivity"
+            android:exported="true"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,11 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/FullscreenTheme"/>
-
     </application>
 
 </manifest>

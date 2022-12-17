@@ -1,8 +1,6 @@
 package anylife.scrolltextview;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,17 +8,14 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -31,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * Android auto Scroll Text,like TV News,AD devices
  *
  *
- * Basic knowledge：https://www.jianshu.com/p/918fec73a24d
+ * Basic knowledge：https://www.jianshu.com/p/918fec73a24d------- unable
  *
  * @author anylife.zlb@gmail.com  2013/09/02
  */
@@ -99,6 +94,10 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
         paint.setColor(textColor);
         paint.setTextSize(textSize);
+
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        paint.setAntiAlias(true);
+        paint.setFilterBitmap(true);
 
         setZOrderOnTop(true);  //Control whether the surface view's surface is placed on top of its window.
         getHolder().setFormat(PixelFormat.TRANSLUCENT);
@@ -278,7 +277,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
             this.textSize=sp2px(getContext(), textSizeTem);
             //重新设置Size
             paint.setTextSize(textSize);
-            //试图区域也要改变
+            //视图区域也要改变
             measureVarious();
 
             //实际的视图高,thanks to WG

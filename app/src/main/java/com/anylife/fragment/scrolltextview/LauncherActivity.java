@@ -2,12 +2,11 @@ package com.anylife.fragment.scrolltextview;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-
 import anylife.scrolltextview.ScrollTextView;
 
 /**
@@ -47,6 +46,8 @@ public class LauncherActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SETTING_CODE);
             }
         });
+        
+
     }
 
 
@@ -93,7 +94,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        scrollTextView.setPauseScroll(false); //防止设置了暂停影响演示
+        scrollTextView.setPauseScroll(false);  //防止设置了暂停影响演示
 
         if (requestCode == REQUEST_SETTING_CODE && resultCode == RESULT_OK) {
             int scrollSpeed = data.getIntExtra(SCROLL_SPEED_KEY, 0);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:customAttr="http://schemas.android.com/apk/res-auto"
@@ -10,11 +10,12 @@
 
     <ImageView
         android:id="@+id/setting"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginRight="22dp"
-        android:background="@drawable/setting"
+        android:layout_width="50dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginRight="11dp"
+        android:padding="11dp"
+        android:src="@drawable/setting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="10dp"
-        android:background="#99224433"
+        android:background="#99248454"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,4 +35,4 @@
         customAttr:text_color="@android:color/white"
         customAttr:text_size="22sp" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

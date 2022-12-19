@@ -60,4 +60,7 @@ Android 滚动字幕，如新闻联播下面的，可以使用在广告机，滚
 
 ### Any questions,please contact me at: anylife.zlb@gmail.com
 
+视频看起来卡顿是录制调低了帧律以便快速上传和播放。
+
+
 https://user-images.githubusercontent.com/15169396/208380192-b323699f-adc8-4116-8fbd-d90c83e91544.mp4

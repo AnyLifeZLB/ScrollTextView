@@ -17,7 +17,7 @@ You can use it in advisement player,TV news show or airport metro information pu
 
 # How to use
 
-## Gradle 集成使用 (2.1.0 以后所有support库变为了AndroidX，并且Target SDK=33)
+## Gradle 集成使用 (2.2.2+ 支持AndroidX，并且Target SDK=33)
 
 ```
  implementation 'io.github.anylifezlb:ScrollTextviewLib:2.2.2'

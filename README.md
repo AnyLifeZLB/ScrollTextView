@@ -11,9 +11,6 @@ Android 滚动字幕，如新闻联播下面的，可以使用在广告机，滚
 继承SurfaceView 实现，CPU 占用低，无内存抖动，以Nexus5X，Android 7.0 上测试流畅度很好，
 大部分品牌手机测试兼容性良好。（下面gif图看起来卡是为了图像质量和大小的平衡减低帧率）
 
-Any questions,please contact me at: anylife.zlb@gmail.com
-
-![image](https://github.com/AnyLifeZLB/ScrollTextView/raw/master/GIF.gif)
 
 # How to use
 
@@ -60,3 +57,7 @@ Any questions,please contact me at: anylife.zlb@gmail.com
 - 2.Android系统信息：    手机品牌或特殊设备描述，Android系统版本号等信息
 
 
+
+### Any questions,please contact me at: anylife.zlb@gmail.com
+
+https://user-images.githubusercontent.com/15169396/208380192-b323699f-adc8-4116-8fbd-d90c83e91544.mp4

@@ -17,7 +17,7 @@ Android 滚动字幕，如新闻联播下面的，可以使用在广告机，滚
 ## Gradle 集成使用 (2.1.0 以后所有support库变为了AndroidX，并且Target SDK=33)
 
 ```
- implementation 'io.github.anylifezlb:ScrollTextviewLib:2.1.0'
+ implementation 'io.github.anylifezlb:ScrollTextviewLib:2.2.2'
 ```
 
 ## 基础设置代码概要

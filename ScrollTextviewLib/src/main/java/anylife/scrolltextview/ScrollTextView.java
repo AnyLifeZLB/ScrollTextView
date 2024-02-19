@@ -26,8 +26,6 @@ import java.util.concurrent.TimeUnit;
  * Android auto Scroll Text,like TV News,AD devices
  *
  *
- * Basic knowledge：https://www.jianshu.com/p/918fec73a24d------- unable
- *
  * @author anylife.zlb@gmail.com  2013/09/02
  */
 public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callback {
@@ -61,6 +59,8 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
     boolean isSetNewText = false;
     boolean isScrollForever = true;
+
+    private Canvas canvas;
 
     /**
      * constructs 1
@@ -170,8 +170,16 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      */
     @Override
     public void surfaceDestroyed(SurfaceHolder arg0) {
-        stopScroll = true;
+        synchronized(this){
+            stopScroll=true;
+        }
+
         scheduledExecutorService.shutdownNow();
+
+//        surfaceHolder.removeCallback(this);
+//        surfaceHolder.getSurface().release();
+//        surfaceHolder = null;
+
         Log.d(TAG, "ScrollTextTextView is destroyed");
     }
 
@@ -395,12 +403,14 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
         if (!clickEnable) {
             return true;
         }
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 pauseScroll = !pauseScroll;
                 break;
         }
         return true;
+
     }
 
 
@@ -438,17 +448,23 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
                 if (pauseScroll) {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         Log.e(TAG, e.toString());
                     }
                     continue;
                 }
 
-                Canvas canvas = surfaceHolder.lockCanvas();
-                canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-                canvas.drawText(strings.get(n), 0, i, paint);
-                surfaceHolder.unlockCanvasAndPost(canvas);
+
+                try {
+                    canvas = surfaceHolder.lockCanvas();
+                    canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+                    canvas.drawText(strings.get(n), 0, i, paint);
+                }catch (Exception e ){
+
+                }finally {
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                }
 
                 if (i - baseLine < 4 && i - baseLine > 0) {
                     if (stopScroll) {
@@ -471,10 +487,15 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
      * @param Y Y
      */
     private synchronized void draw(float X, float Y) {
-        Canvas canvas = surfaceHolder.lockCanvas();
-        canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-        canvas.drawText(text, X, Y, paint);
-        surfaceHolder.unlockCanvasAndPost(canvas);
+        try {
+            canvas = surfaceHolder.lockCanvas();
+            canvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+            canvas.drawText(text, X, Y, paint);
+        }catch (Exception e){
+
+        }finally {
+            surfaceHolder.unlockCanvasAndPost(canvas);
+        }
     }
 
 
@@ -509,7 +530,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
 
             measureVarious();
 
-            while (!stopScroll) {
+            while (!stopScroll&&surfaceHolder!=null&& !Thread.currentThread().isInterrupted()) {
 
                 // NoNeed Scroll，短文不滚动，居中 ？暂时不支持吧
 //                if (textWidth < getWidth()) {
@@ -521,7 +542,7 @@ public class ScrollTextView extends SurfaceView implements SurfaceHolder.Callbac
                 if (isHorizontal) {
                     if (pauseScroll) {
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             Log.e(TAG, e.toString());
                         }
